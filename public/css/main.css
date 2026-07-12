@@ -11,8 +11,8 @@
   --primary-dark: #155e75;
   --primary-hover: #22d3ee;
   --primary-light: #0c1929;
-  --accent: #d4a574;
-  --accent-soft: #fbbf24;
+  --accent: #c8a44e;
+  --accent-soft: #d4b85c;
   --accent-glow: rgba(8, 145, 178, 0.25);
 
   --bg-cream: #0c1929;
@@ -175,7 +175,7 @@ h4 { font-size: 1.25rem; }
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(17, 8, 12, 0.92);
+  background: rgba(6, 14, 26, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -344,11 +344,11 @@ h4 { font-size: 1.25rem; }
 }
 
 .btn-secondary:hover {
-  background: rgba(212, 165, 116, 0.1);
+  background: rgba(200, 164, 78, 0.1);
   border-color: var(--accent-soft);
   color: var(--accent-soft);
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(212, 165, 116, 0.15);
+  box-shadow: 0 4px 16px rgba(200, 164, 78, 0.15);
 }
 
 .btn-outline {
@@ -361,7 +361,7 @@ h4 { font-size: 1.25rem; }
   background: var(--primary);
   color: white;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(92, 31, 20, 0.3);
+  box-shadow: 0 4px 12px rgba(200, 164, 78, 0.2);
 }
 
 .btn-danger {
@@ -603,7 +603,7 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(10, 4, 8, 0.75);
+  background: rgba(6, 14, 26, 0.75);
   backdrop-filter: blur(6px);
   z-index: 2000;
   display: none;
@@ -933,7 +933,7 @@ img {
 }
 
 .user-dropdown .logout-btn:hover {
-  background: rgba(224, 90, 106, 0.12);
+  background: rgba(8, 145, 178, 0.12);
 }
 
 /* ─── Switch Admin/Cliente ─── */
@@ -1121,5 +1121,5 @@ body::after {
 .whatsapp-icon svg {
   width: 100%;
   height: 100%;
-  fill: #5C1F14;
+  fill: #0c1929;
 }

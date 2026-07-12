@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   background: radial-gradient(ellipse at 20% 50%, rgba(8, 145, 178, 0.12) 0%, transparent 55%),
-              radial-gradient(ellipse at 80% 20%, rgba(212, 165, 116, 0.06) 0%, transparent 45%),
+              radial-gradient(ellipse at 80% 20%, rgba(200, 164, 78, 0.06) 0%, transparent 45%),
               linear-gradient(180deg, var(--bg-light) 0%, var(--bg-cream) 100%);
   position: relative;
   overflow: hidden;
@@ -74,7 +74,7 @@
   height: auto;
   display: block;
   margin-bottom: 28px;
-  filter: drop-shadow(0 4px 20px rgba(8, 145, 178, 0.3));
+  filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.25));
 }
 
 .hero-lead {
@@ -186,7 +186,7 @@
   left: 0;
   right: 0;
   padding: 60px 20px 20px;
-  background: linear-gradient(to top, rgba(17, 8, 12, 0.85) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(6, 14, 26, 0.85) 0%, transparent 100%);
   color: white;
 }
 
@@ -397,7 +397,7 @@
 
 /* Filters Sidebar */
 .filters-sidebar {
-  background: linear-gradient(180deg, #F5E9ED 0%, #E7C7CF 50%, #A07A80 100%);
+  background: linear-gradient(180deg, #132a42 0%, #0f2337 50%, #0c1929 100%);
   border-radius: var(--radius-lg);
   padding: 24px;
   box-shadow: var(--shadow-sm);
@@ -411,23 +411,23 @@
 .filters-sidebar .filter-group label,
 .filters-sidebar .filter-category-btn,
 .filters-sidebar .clear-filters {
-  color: #4a3036;
+  color: var(--text-primary);
 }
 
 .filters-sidebar .filter-category-btn {
   background: rgba(255,255,255,0.55);
-  border-color: rgba(160,122,128,0.25);
+  border-color: rgba(30, 58, 95, 0.4);
 }
 
 .filters-sidebar .filter-category-btn:hover {
   background: rgba(255,255,255,0.85);
-  border-color: #A07A80;
+  border-color: var(--primary);
 }
 
 .filters-sidebar .filter-category-btn.active {
-  background: #A07A80;
+  background: var(--primary);
   color: #fff;
-  border-color: #A07A80;
+  border-color: var(--primary);
 }
 
 .filters-sidebar .clear-filters {
@@ -439,14 +439,14 @@
 }
 
 .filters-sidebar .size-chip {
-  color: #3a2028;
-  border-color: rgba(160,122,128,0.3);
+  color: var(--text-primary);
+  border-color: rgba(30, 58, 95, 0.5);
 }
 
 .filters-sidebar .size-chip.active {
-  background: #A07A80;
+  background: var(--primary);
   color: #fff;
-  border-color: #A07A80;
+  border-color: var(--primary);
 }
 
 .filters-header {
@@ -731,7 +731,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgba(92, 31, 20, 0.9);
+  background: rgba(6, 14, 26, 0.9);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -755,7 +755,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(28, 16, 22, 0.85);
+  background: rgba(6, 14, 26, 0.85);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -1073,13 +1073,13 @@
   font-size: 0.7rem;
 }
 /* ============================================================
-   CATÁLOGO: TARJETAS CON TONO MALVA ELEGANTE (#a07a80)
+   CATÁLOGO: TARJETAS CON TONO AQUA MARINO
    ============================================================ */
 
 /* Contenedor principal de la tarjeta en el catálogo */
 #catalogGrid .product-card {
-  background: #a07a80; /* Tu color personalizado */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Borde claro muy sutil */
+  background: var(--bg-white);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra base suave */
@@ -1089,7 +1089,7 @@
 /* Efecto al pasar el cursor: Sombra con el mismo tono para dar un aura elegante */
 #catalogGrid .product-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(160, 122, 128, 0.45); 
+  box-shadow: 0 12px 24px rgba(8, 145, 178, 0.25); 
 }
 
 /* Área de la imagen */
@@ -1636,37 +1636,37 @@
   color: #555555 !important;
 }
 
-/* Hover y enlace activo del menú con toque malva */
+/* Hover y enlace activo del menú con tono dorado */
 .navbar-links a:hover,
 .navbar-links a.active {
-  color: #a07a80 !important;
-  background: rgba(160, 122, 128, 0.08) !important;
+  color: var(--accent) !important;
+  background: rgba(200, 164, 78, 0.08) !important;
 }
 
 /* Íconos de favoritos (♡), usuario (◉), y menú móvil (≡) */
 .navbar-actions .btn-icon,
 .menu-toggle {
-  color: #555555 !important;
+  color: var(--text-secondary) !important;
 }
 
 .navbar-actions .btn-icon:hover,
 .menu-toggle:hover {
-  color: #a07a80 !important;
-  background: rgba(160, 122, 128, 0.08) !important;
+  color: var(--accent) !important;
+  background: rgba(200, 164, 78, 0.08) !important;
 }
 
-/* Botón de "Iniciar Sesión" con el degradado malva premium */
+/* Botón de "Iniciar Sesión" con el degradado dorado premium */
 .navbar .btn-primary {
-  background: linear-gradient(135deg, #a07a80 0%, #8a6a6f 100%) !important;
+  background: linear-gradient(135deg, #c8a44e 0%, #a8893c 100%) !important;
   border: none !important;
-  box-shadow: 0 4px 12px rgba(160, 122, 128, 0.25) !important;
+  box-shadow: 0 4px 12px rgba(200, 164, 78, 0.25) !important;
   color: #ffffff !important;
   font-weight: 600;
 }
 
 .navbar .btn-primary:hover {
-  background: linear-gradient(135deg, #b89399 0%, #a07a80 100%) !important;
-  box-shadow: 0 6px 16px rgba(160, 122, 128, 0.4) !important;
+  background: linear-gradient(135deg, #d4b85c 0%, #c8a44e 100%) !important;
+  box-shadow: 0 6px 16px rgba(200, 164, 78, 0.4) !important;
   transform: translateY(-2px);
 }
 
@@ -1710,4 +1710,48 @@
 }
 .size-guide-link {
   margin: 8px 0;
+}
+
+/* ─── Bordes Florales Decorativos (hover) ─── */
+.product-card::before,
+.product-card::after,
+.category-card::before,
+.category-card::after,
+.card::before,
+.card::after {
+  content: '';
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 10;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath d='M10,110 Q20,80 35,65 Q50,50 55,30 Q58,20 52,15 Q46,10 40,18 Q35,25 38,35 Q42,48 30,62 Q18,76 15,100' fill='none' stroke='rgba(200,164,78,0.35)' stroke-width='1.2'/%3E%3Ccircle cx='52' cy='15' r='5' fill='none' stroke='rgba(200,164,78,0.3)' stroke-width='0.8'/%3E%3Ccircle cx='52' cy='15' r='2.5' fill='rgba(200,164,78,0.2)'/%3E%3Cpath d='M48,14 Q44,8 40,10 Q36,12 38,16' fill='none' stroke='rgba(200,164,78,0.25)' stroke-width='0.8'/%3E%3Cpath d='M56,13 Q60,8 58,5 Q56,2 52,5' fill='none' stroke='rgba(200,164,78,0.25)' stroke-width='0.8'/%3E%3Cpath d='M42,28 Q36,22 32,24 Q28,26 30,30' fill='none' stroke='rgba(200,164,78,0.2)' stroke-width='0.7'/%3E%3Ccircle cx='32' cy='24' r='3' fill='none' stroke='rgba(200,164,78,0.2)' stroke-width='0.6'/%3E%3Cpath d='M28,50 Q22,46 20,48 Q18,50 20,54' fill='none' stroke='rgba(200,164,78,0.2)' stroke-width='0.7'/%3E%3Ccircle cx='20' cy='48' r='2.5' fill='none' stroke='rgba(200,164,78,0.18)' stroke-width='0.6'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.product-card::before,
+.category-card::before,
+.card::before {
+  top: -4px;
+  left: -4px;
+}
+
+.product-card::after,
+.category-card::after,
+.card::after {
+  bottom: -4px;
+  right: -4px;
+  transform: rotate(180deg);
+}
+
+.product-card:hover::before,
+.product-card:hover::after,
+.category-card:hover::before,
+.category-card:hover::after,
+.card:hover::before,
+.card:hover::after {
+  opacity: 1;
 }
