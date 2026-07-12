@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Panel Admin | Nicol Dress Rental</title>
+  <link rel="stylesheet" href="../public/css/main.css">
+  <link rel="stylesheet" href="../public/css/admin.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>ღ</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-light">
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-logo"><span>ღ Nicol Dress Rental</span></a>
+      <div style="font-size:0.85rem;color:var(--text-muted);">Panel de Administración</div>
+      <div class="navbar-actions">
+        <button class="btn btn-outline btn-sm" onclick="handleLogout()">⤻ Salir</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="admin-layout">
+      <aside class="admin-sidebar">
+        <div class="sidebar-logo">Admin</div>
+        <a href="dashboard.html" class="active"><img src="../public/img/Iconos/Grafica.png" class="sidebar-icon-img" alt=""><span>Dashboard</span></a>
+        <a href="inventario.html"><img src="../public/img/Iconos/Inventario.png" class="sidebar-icon-img" alt=""><span>Inventario</span></a>
+        <a href="usuarios.html"><img src="../public/img/Iconos/Usuarios.png" class="sidebar-icon-img" alt=""><span>Usuarios</span></a>
+        <a href="scanner.html"><img src="../public/img/Iconos/Etiquetas.png" class="sidebar-icon-img" alt=""><span>Scanner QR</span></a>
+        <a href="../catalogo.html"><span>Ver Tienda</span></a>
+      </aside>
+
+      <section class="admin-main">
+        <h1><img src="../public/img/Iconos/Grafica.png" class="heading-icon-img" alt="">Dashboard</h1>
+        <p class="page-desc">Resumen operativo de Nicol Dress Rental</p>
+
+        <!-- Stats -->
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-card">
+            <div class="stat-icon purple"><img src="../public/img/Iconos/Calendario.png" alt=""></div>
+            <div class="stat-number" id="statCitasHoy">-</div>
+            <div class="stat-label">Citas para hoy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue"><img src="../public/img/Iconos/Vestidos.png" alt=""></div>
+            <div class="stat-number" id="statDisponibles">-</div>
+            <div class="stat-label">Vestidos disponibles</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><img src="../public/img/Iconos/Lavanderia.png" alt=""></div>
+            <div class="stat-number" id="statLavanderia">-</div>
+            <div class="stat-label">En lavandería</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange"><img src="../public/img/Iconos/Reparacion.png" alt=""></div>
+            <div class="stat-number" id="statReparacion">-</div>
+            <div class="stat-label">En reparación</div>
+          </div>
+        </div>
+
+        <!-- Calendario de Citas -->
+        <div class="table-container">
+          <div class="table-header">
+            <h3><img src="../public/img/Iconos/Calendario.png" class="heading-icon-img" alt=""> Calendario de Citas</h3>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <button class="btn btn-sm btn-outline" onclick="adminCambiarMes(-1)">‹</button>
+              <span id="adminMesActual" style="font-weight:600;min-width:150px;text-align:center;"></span>
+              <button class="btn btn-sm btn-outline" onclick="adminCambiarMes(1)">›</button>
+            </div>
+          </div>
+          <div id="adminCalendarWidget" style="padding:16px 24px;"></div>
+        </div>
+
+        <!-- Citas de Hoy + WhatsApp -->
+        <div class="table-container">
+          <div class="table-header">
+            <h3>Citas del Día</h3>
+            <span id="citasHoyCount" style="color:var(--text-muted);font-size:0.9rem;"></span>
+          </div>
+          <div id="citasHoyTable">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Vestido</th>
+                  <th>Hora</th>
+                  <th>Tipo</th>
+                  <th>Estado</th>
+                  <th>Recordatorio</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="citasHoyBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Todas las Citas Pendientes -->
+        <div class="table-container">
+          <div class="table-header">
+            <h3>Todas las Citas Pendientes</h3>
+          </div>
+          <div id="citasPendientesTable">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Vestido</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Tipo</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="citasPendientesBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Estadísticas de Rentabilidad -->
+        <div class="chart-container">
+          <h3 style="margin-bottom:20px;"><img src="../public/img/Iconos/Grafica.png" class="heading-icon-img" alt="">Vestidos Más Rentados</h3>
+          <div id="chartBars"></div>
+        </div>
+
+        <!-- Ingresos -->
+        <div class="table-container">
+          <div class="table-header">
+            <h3> Registro de Ingresos</h3>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-primary btn-sm" onclick="mostrarFormularioIngreso()">+ Registrar Ingreso</button>
+              <button class="btn btn-outline btn-sm" onclick="exportarIngresosCSV()">⬇ Exportar CSV</button>
+            </div>
+          </div>
+          <div id="ingresosTable">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Concepto</th>
+                  <th>Vestido</th>
+                  <th>Cliente</th>
+                  <th>Tipo</th>
+                  <th>Monto</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="ingresosBody"></tbody>
+            </table>
+          </div>
+          <div style="padding:16px 24px;text-align:right;border-top:1px solid var(--border-light);">
+            <strong>Total Ingresos: </strong><span id="totalIngresos" style="font-size:1.2rem;color:var(--primary);font-weight:700;">Q0.00</span>
+          </div>
+        </div>
+
+        <!-- Modal Nuevo Ingreso -->
+        <div class="modal-overlay" id="ingresoModal" style="display:none;">
+          <div class="modal" style="max-width:500px;">
+            <div class="modal-header">
+              <h3>Registrar Ingreso</h3>
+              <button class="modal-close" onclick="cerrarFormularioIngreso()">×</button>
+            </div>
+            <form class="damage-form" onsubmit="guardarIngreso(event)">
+              <input type="hidden" id="ingresoEditId">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Concepto</label>
+                  <select id="ingresoConcepto" required>
+                    <option value="renta">Renta</option>
+                    <option value="venta">Venta</option>
+                    <option value="deposito">Depósito</option>
+                    <option value="otro">Otro</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Vestido</label>
+                  <select id="ingresoVestido">
+                    <option value="">Ninguno</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Cliente</label>
+                  <select id="ingresoCliente">
+                    <option value="">Seleccionar...</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Monto (GTQ)</label>
+                  <input type="number" id="ingresoMonto" min="0" step="0.01" required placeholder="0.00">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Notas</label>
+                <input type="text" id="ingresoNotas" placeholder="Opcional">
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn btn-outline" onclick="cerrarFormularioIngreso()">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar Ingreso</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Vestidos en Lavandería -->
+        <div class="table-container">
+          <div class="table-header">
+            <h3><img src="../public/img/Iconos/Vestidos.png" class="heading-icon-img" alt="">Vestidos en Lavandería / Tintorería</h3>
+          </div>
+          <div id="lavanderiaList"></div>
+        </div>
+
+        <!-- Daños / Depósitos -->
+        <div class="table-container">
+          <div class="table-header">
+            <h3>Control de Daños y Depósitos</h3>
+            <button class="btn btn-primary btn-sm" onclick="abrirFormularioDano()">+ Nuevo Daño</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Vestido</th>
+                <th>Cliente</th>
+                <th>Daño Reportado</th>
+                <th>Tipo</th>
+                <th>Depósito a Retener</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="danosBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Modal Daños -->
+        <div class="modal-overlay" id="danoModal" style="display:none;">
+          <div class="modal">
+            <div class="modal-header">
+              <h3 id="danoFormTitle">Nuevo Daño</h3>
+              <button class="modal-close" onclick="cerrarFormularioDano()">×</button>
+            </div>
+            <form class="damage-form" id="danoForm" onsubmit="guardarDano(event)">
+              <input type="hidden" id="danoEditId">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="danoVestido">Vestido</label>
+                  <select id="danoVestido" required></select>
+                </div>
+                <div class="form-group">
+                  <label for="danoCliente">Cliente</label>
+                  <select id="danoCliente" required></select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="danoDescripcion">Descripción del daño</label>
+                <textarea id="danoDescripcion" rows="3" required placeholder="Describe el daño..."></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="danoTipo">Tipo</label>
+                  <select id="danoTipo">
+                    <option value="Menor">Menor</option>
+                    <option value="Grave">Grave</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="danoDeposito">Depósito a retener (Q)</label>
+                  <input type="number" id="danoDeposito" min="0" step="0.01" required placeholder="0.00">
+                </div>
+                <div class="form-group">
+                  <label for="danoEstado">Estado</label>
+                  <select id="danoEstado">
+                    <option value="pendiente">Pendiente</option>
+                    <option value="resuelto">Resuelto</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn btn-outline" onclick="cerrarFormularioDano()">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="../public/js/data.js"></script>
+  <script src="../public/js/image-config.js"></script>
+  <script src="../public/js/carrito.js"></script>
+  <script src="../public/js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      /* COMENTAMOS LA SEGURIDAD PARA PODER ENTRAR
+      const user = getCurrentUser();
+      if (!user || user.correo !== 'admin@boutique.com') {
+        window.location.href = '../index.html';
+        return;
+      }
+      */
+      cargarDashboard();
+      cargarEstadisticas();
+      cargarTintoreria();
+      cargarDanos();
+      renderizarIngresos();
+      renderizarCalendarioAdmin();
+    });
+  </script>
+</body>
+</html>

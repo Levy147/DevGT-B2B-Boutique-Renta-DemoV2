@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preguntas Frecuentes - Nicol Dress Rental</title>
+  <meta name="description" content="FAQ - Resuelve tus dudas sobre alquiler de vestidos en Nicol Dress Rental. Proceso, devolución, daños y más.">
+  <link rel="stylesheet" href="public/css/main.css">
+  <link rel="stylesheet" href="public/css/cliente.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>ღ</text></svg>">
+  <style>
+    .faq-section { max-width: 800px; margin: 0 auto; padding: 60px 0; }
+    .faq-item { border-bottom: 1px solid var(--border-light); padding: 20px 0; }
+    .faq-question { font-weight: 700; font-size: 1.05rem; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-question::after { content: '+'; font-size: 1.3rem; color: var(--primary); transition: transform 0.3s ease; }
+    .faq-question.open::after { content: '−'; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; }
+    .faq-answer.open { max-height: 500px; padding-top: 12px; }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo"><span>ღ Nicol Dress Rental</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menú">≡</button>
+      <div class="navbar-links" id="navbarLinks">
+        <a href="index.html">Inicio</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="faq.html" class="active">FAQ</a>
+      </div>
+      <div class="navbar-actions">
+        <button class="btn-icon" onclick="window.location.href='catalogo.html?tab=favoritos'" title="Favoritos">♡</button>
+        <button class="btn btn-primary btn-sm" id="loginBtn" onclick="toggleUserMenu()">Iniciar Sesión</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="page-hero">
+      <h1>Preguntas Frecuentes</h1>
+      <p>Resuelve tus dudas sobre el proceso de alquiler de vestidos</p>
+    </div>
+
+    <div class="container">
+      <div class="faq-section">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">¿Cómo funciona el alquiler de vestidos?</div>
+          <div class="faq-answer">
+            <p>Es muy sencillo. Explora nuestro catálogo en línea, selecciona el vestido que más te guste y agenda una cita para probártelo en nuestra boutique ubicada en 7av 16-21 zona 9, Guatemala. Si el vestido te queda bien, lo reservas para la fecha de tu evento. Lo recoges un día antes, lo usas y lo devuelves al día siguiente del evento. Incluye ajustes básicos gratuitos.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">¿Cuánto tiempo puedo quedarme con el vestido?</div>
+          <div class="faq-answer">
+            <p>El período de alquiler estándar es de 3 días: puedes recoger el vestido un día antes de tu evento, usarlo el día del evento y devolverlo al día siguiente. Si necesitas más tiempo, consulta con nuestro equipo y podemos hacer arreglos especiales sujeto a disponibilidad y costo adicional.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">¿Qué incluye el precio de alquiler?</div>
+          <div class="faq-answer">
+            <p>El precio incluye el uso del vestido por el período estándar de 3 días, ajustes básicos gratuitos (en nuestra boutique), y limpieza profesional posterior. No incluye accesorios como tiaras, bolsos, chales o zapatos, aunque puedes agregarlos por un costo adicional.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">¿Requieren algún depósito de garantía?</div>
+          <div class="faq-answer">
+            <p>Sí, solicitamos un depósito de garantía reembolsable que varía según el valor del vestido. Este depósito se te regresa íntegramente cuando devuelves el vestido en las mismas condiciones en que lo recibiste. En caso de daños mayores o pérdida, el depósito puede ser retenido parcial o totalmente.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">¿Puedo probarme el vestido antes de alquilarlo?</div>
+          <div class="faq-answer">
+            <p>¡Por supuesto! De hecho, lo recomendamos ampliamente. Agenda una cita a través de nuestra página web o llámanos al 2339-4963 para programar una prueba. No tiene costo y te ayudaremos a elegir el vestido perfecto para tu evento.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">¿Qué pasa si el vestido me queda mal?</div>
+          <div class="faq-answer">
+            <p>No te preocupes. Contamos con un servicio de ajustes básicos incluido en el precio de alquiler. Nuestras modistas pueden hacer modificaciones como largos, costados y tirantes. Para ajustes más complejos, podemos recomendarte un profesional con costo adicional. Por eso es importante que hagas la prueba con anticipación.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">¿Puedo cancelar o cambiar mi reserva?</div>
+          <div class="faq-answer">
+            <p>Sí, puedes cancelar tu reserva hasta 48 horas antes de la fecha de recogida sin costo. Pasado ese plazo, se retendrá el 30% del depósito de garantía. Los cambios de vestido están sujetos a disponibilidad y deben hacerse con al menos 3 días de anticipación.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">¿Ofrecen vestidos para damas y madrinas?</div>
+          <div class="faq-answer">
+            <p>¡Sí! Tenemos una amplia selección de vestidos para damas, madrinas e invitadas de bodas. Además ofrecemos descuentos especiales para grupos de 3 o más vestidos alquilados para el mismo evento. Consulta por nuestro paquete grupal llamando al 2339-4963.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">¿Qué medidas de higiene y limpieza aplican?</div>
+          <div class="faq-answer">
+            <p>Todos nuestros vestidos pasan por un riguroso proceso de limpieza profesional en seco después de cada alquiler. Además, inspeccionamos cada prenda para garantizar que esté en perfectas condiciones. La higiene y calidad son nuestra prioridad número uno.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">¿Aceptan pagos con tarjeta?</div>
+          <div class="faq-answer">
+            <p>Sí, aceptamos efectivo, transferencias bancarias, tarjetas de crédito y débito (Visa, Mastercard). También aceptamos pagos a través de depósitos en banco. El pago completo debe realizarse al momento de recoger el vestido.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">ღ Nicol Dress Rental</div>
+        <p>Alquiler de vestidos para Fiesta, Novia, Damas y 15 Años. Calidad premium, precios accesibles y atención personalizada en Guatemala.</p>
+      </div>
+      <div>
+        <h4>Explorar</h4>
+        <a href="catalogo.html">Catálogo</a><br>
+        <a href="faq.html">Preguntas Frecuentes</a><br>
+        <a href="politicas.html">Política de Alquiler</a><br>
+        <a href="terminos.html">Términos</a>
+      </div>
+      <div>
+        <h4>Ayuda</h4>
+        <a href="faq.html">FAQ</a><br>
+        <a href="politicas.html">Política de Alquiler</a><br>
+        <a href="terminos.html">Términos y Condiciones</a><br>
+        <a href="privacidad.html">Aviso de Privacidad</a>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <p>◎ 7av 16-21 zona 9, Guatemala</p>
+        <p>☏ <a href="tel:58570841">5857-0841</a></p>
+        <p>✉ info@nicoldressrental.com</p>
+        <p> <a href="https://www.instagram.com/nicoldressrental/" target="_blank" rel="noopener">@nicoldressrental</a></p>
+        <p> <a href="https://www.facebook.com/NicolDressRental/?locale=es_LA" target="_blank" rel="noopener">Nicol Dress Rental</a></p>
+        <p>◷ Lun-Sáb: 10:00 - 19:00</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Nicol Dress Rental - Guatemala. Todos los derechos reservados.</p>
+      <p class="devgt-credit">Desarrollado por <strong>DevGT</strong></p>
+      <button class="switch-view" onclick="window.location.href='admin/dashboard.html'" style="margin-top:8px;"><img src="public/img/Iconos/Ajustes.png" class="heading-icon-img" alt=""> Cambiar a Vista Admin</button>
+    </div>
+  </footer>
+
+  <!-- ─── LOGIN MODAL ─── -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Iniciar Sesión</h3>
+        <button class="modal-close" onclick="closeLoginModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="loginEmail">Correo electrónico</label>
+            <input type="email" id="loginEmail" placeholder="tu@correo.com" required>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Contraseña</label>
+            <input type="password" id="loginPassword" placeholder="••••••" required>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+          </div>
+          <div class="form-footer">
+            <p>Usuarios demo: <strong>maria@demo.com</strong> / <strong>ana@demo.com</strong> / <strong>carmen@demo.com</strong><br>Contraseña: <strong>123456</strong></p>
+            <p style="margin-top: 8px; font-size: 0.85rem;">¿No tienes cuenta? <a href="#" onclick="showToast('El registro estará disponible próximamente', 'info'); return false;" style="color: var(--primary); font-weight: 600;">Regístrate aquí</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TOAST ─── -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="public/js/data.js"></script>
+  <script src="public/js/catalogo.js"></script>
+  <script src="public/js/carrito.js"></script>
+  <script src="public/js/image-config.js"></script>
+  <script>
+    document.getElementById('menuToggle')?.addEventListener('click', () => {
+      document.getElementById('navbarLinks').classList.toggle('open');
+    });
+    function toggleFaq(el) {
+      el.classList.toggle('open');
+      const answer = el.nextElementSibling;
+      answer.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

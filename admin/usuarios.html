@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuarios - Panel Admin | Nicol Dress Rental</title>
+  <link rel="stylesheet" href="../public/css/main.css">
+  <link rel="stylesheet" href="../public/css/admin.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>ღ</text></svg>">
+</head>
+<body class="admin-light">
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-logo"><span>ღ Nicol Dress Rental</span></a>
+      <div style="font-size:0.85rem;color:var(--text-muted);">Panel de Administración</div>
+      <div class="navbar-actions">
+        <button class="btn btn-outline btn-sm" onclick="handleLogout()">⤻ Salir</button>
+      </div>
+    </div>
+  </nav>
+  <main class="main-content">
+    <div class="admin-layout">
+      <aside class="admin-sidebar">
+        <div class="sidebar-logo">Admin</div>
+        <a href="dashboard.html"><img src="../public/img/Iconos/Grafica.png" class="sidebar-icon-img" alt=""><span>Dashboard</span></a>
+        <a href="inventario.html"><img src="../public/img/Iconos/Inventario.png" class="sidebar-icon-img" alt=""><span>Inventario</span></a>
+        <a href="usuarios.html" class="active"><img src="../public/img/Iconos/Usuarios.png" class="sidebar-icon-img" alt=""><span>Usuarios</span></a>
+        <a href="scanner.html"><img src="../public/img/Iconos/Etiquetas.png" class="sidebar-icon-img" alt=""><span>Scanner QR</span></a>
+        <a href="../catalogo.html"><span>Ver Tienda</span></a>
+      </aside>
+      <section class="admin-main">
+        <h1><img src="../public/img/Iconos/Usuarios.png" class="heading-icon-img" alt="">Gestión de Usuarios</h1>
+        <p class="page-desc">Listado de clientes registrados en el sistema</p>
+
+        <!-- Anuncio Global -->
+        <div class="table-container" style="margin-bottom:24px;">
+          <div class="table-header">
+            <h3><img src="../public/img/Iconos/Ajustes.png" class="heading-icon-img" alt="">Enviar Anuncio Global</h3>
+          </div>
+          <div style="padding:16px 24px;">
+            <textarea id="anuncioTexto" rows="3" style="width:100%;padding:10px;border:1px solid var(--border-light);border-radius:8px;resize:vertical;font-family:inherit;" placeholder="Escribe el mensaje que se mostrará a todos los usuarios al iniciar sesión..."></textarea>
+            <button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="enviarAnuncioGlobal()">Enviar Anuncio</button>
+            <span id="anuncioStatus" style="margin-left:8px;font-size:0.85rem;"></span>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <div class="table-header">
+            <h3><img src="../public/img/Iconos/Usuarios.png" class="heading-icon-img" alt="">Usuarios Registrados</h3>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Favoritos</th>
+                <th>Rol</th>
+                <th>Citas</th>
+              </tr>
+            </thead>
+            <tbody id="usuariosBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="../public/js/data.js"></script>
+  <script src="../public/js/image-config.js"></script>
+  <script src="../public/js/carrito.js"></script>
+  <script src="../public/js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderizarUsuarios();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo - Nicol Dress Rental</title>
+  <link rel="stylesheet" href="public/css/main.css">
+  <link rel="stylesheet" href="public/css/cliente.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>ღ</text></svg>">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo"><span>ღ Nicol Dress Rental</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menú">≡</button>
+      <div class="navbar-links" id="navbarLinks">
+        <a href="index.html">Inicio</a>
+        <a href="catalogo.html" class="active">Catálogo</a>
+        <a href="index.html#como-funciona">Cómo Funciona</a>
+      </div>
+      <div class="navbar-actions">
+        <button class="btn-icon" onclick="handleFavClick()" title="Favoritos">♡</button>
+        <button class="btn btn-primary btn-sm" id="loginBtn" onclick="toggleUserMenu()">Iniciar Sesión</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="page-hero">
+      <h1>Catálogo de Vestidos</h1>
+      <p>Encuentra el vestido perfecto para tu evento especial</p>
+    </div>
+
+    <div class="container">
+      <div class="catalog-layout">
+        <!-- ─── SIDEBAR FILTROS ─── -->
+        <aside class="filters-sidebar" id="filtersSidebar">
+          <div class="filters-header">
+            <h3>Filtros</h3>
+            <span class="clear-filters" onclick="limpiarFiltros()">Limpiar todo ×</span>
+          </div>
+
+          <!-- Categoría -->
+          <div class="filter-group">
+            <label>Categoría</label>
+            <div class="filter-categories" id="filterCategorias">
+              <button class="filter-category-btn" data-categoria="" onclick="filtrarPorCategoria(this)">Todas</button>
+              <button class="filter-category-btn" data-categoria="Boda" onclick="filtrarPorCategoria(this)">Boda</button>
+              <button class="filter-category-btn" data-categoria="15 Años" onclick="filtrarPorCategoria(this)">15 Años</button>
+              <button class="filter-category-btn" data-categoria="Graduación" onclick="filtrarPorCategoria(this)">Graduación</button>
+              <button class="filter-category-btn" data-categoria="Cóctel" onclick="filtrarPorCategoria(this)">Cóctel</button>
+            </div>
+          </div>
+
+          <!-- Color -->
+          <div class="filter-group">
+            <label>Color</label>
+            <div class="color-swatches" id="filterColores">
+              <button class="color-swatch" data-color="Blanco" onclick="filtrarPorColor(this)"></button>
+              <button class="color-swatch" data-color="Marfil" onclick="filtrarPorColor(this)"></button>
+              <button class="color-swatch" data-color="Rosado" onclick="filtrarPorColor(this)"></button>
+              <button class="color-swatch" data-color="Azul" onclick="filtrarPorColor(this)"></button>
+              <button class="color-swatch" data-color="Rojo" onclick="filtrarPorColor(this)"></button>
+              <button class="color-swatch" data-color="Dorado" onclick="filtrarPorColor(this)"></button>
+              <button class="color-swatch" data-color="Plateado" onclick="filtrarPorColor(this)"></button>
+              <button class="color-swatch" data-color="Lavanda" onclick="filtrarPorColor(this)"></button>
+              <button class="color-swatch" data-color="Verde" onclick="filtrarPorColor(this)"></button>
+              <button class="color-swatch" data-color="Negro" onclick="filtrarPorColor(this)"></button>
+            </div>
+          </div>
+
+          <!-- Talla -->
+          <div class="filter-group">
+            <label>Talla</label>
+            <div class="size-chips" id="filterTallas">
+              <button class="size-chip" data-talla="XS" onclick="filtrarPorTalla(this)">XS</button>
+              <button class="size-chip" data-talla="S" onclick="filtrarPorTalla(this)">S</button>
+              <button class="size-chip" data-talla="M" onclick="filtrarPorTalla(this)">M</button>
+              <button class="size-chip" data-talla="L" onclick="filtrarPorTalla(this)">L</button>
+              <button class="size-chip" data-talla="XL" onclick="filtrarPorTalla(this)">XL</button>
+            </div>
+          </div>
+
+          <!-- Precio -->
+          <div class="filter-group">
+            <label>Rango de Precio (Renta)</label>
+            <div class="price-range-inputs">
+              <input type="number" id="precioMin" placeholder="Min" min="0" onchange="filtrarPorPrecio()">
+              <span>—</span>
+              <input type="number" id="precioMax" placeholder="Max" min="0" onchange="filtrarPorPrecio()">
+            </div>
+          </div>
+
+          <!-- Tipo transacción -->
+          <div class="filter-group">
+            <label>Tipo</label>
+            <div class="filter-checkboxes">
+              <label class="filter-checkbox">
+                <input type="checkbox" id="soloRenta" onchange="aplicarFiltros()">
+                Solo Alquiler
+              </label>
+              <label class="filter-checkbox">
+                <input type="checkbox" id="soloVenta" onchange="aplicarFiltros()">
+                Solo Venta
+              </label>
+            </div>
+          </div>
+        </aside>
+
+        <!-- ─── GRID CATÁLOGO ─── -->
+        <div>
+          <div class="catalog-header">
+            <span class="result-count" id="resultCount">Mostrando 0 vestidos</span>
+            <select class="sort-select" id="sortSelect" onchange="aplicarFiltros()">
+              <option value="default">Ordenar por</option>
+              <option value="precio-asc">Menor precio</option>
+              <option value="precio-desc">Mayor precio</option>
+              <option value="nombre">Nombre A-Z</option>
+            </select>
+          </div>
+          <div class="grid grid-3" id="catalogGrid"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">ღ Nicol Dress Rental</div>
+        <p>Alquiler de vestidos para Fiesta, Novia, Damas y 15 Años.</p>
+      </div>
+      <div>
+        <h4>Explorar</h4>
+        <a href="catalogo.html">Catálogo</a><br>
+        <a href="index.html#como-funciona">Cómo Funciona</a><br>
+        <a href="catalogo.html?categoria=Boda">Novia</a><br>
+        <a href="catalogo.html?categoria=15 Años">15 Años</a>
+      </div>
+      <div><h4>Ayuda</h4><a href="faq.html">FAQ</a><br><a href="politicas.html">Política de Alquiler</a><br><a href="terminos.html">Términos</a><br><a href="privacidad.html">Privacidad</a></div>
+      <div>
+        <h4>Contacto</h4>
+        <p>◎ 7av 16-21 zona 9, Guatemala</p>
+        <p>☏ <a href="tel:58570841">5857-0841</a></p>
+        <p>✉ info@nicoldressrental.com</p>
+        <p> <a href="https://www.instagram.com/nicoldressrental/" target="_blank" rel="noopener">@nicoldressrental</a></p>
+        <p> <a href="https://www.facebook.com/NicolDressRental/?locale=es_LA" target="_blank" rel="noopener">Nicol Dress Rental</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Nicol Dress Rental - Guatemala. Todos los derechos reservados.</p>
+      <p class="devgt-credit">Desarrollado por <strong>DevGT</strong></p></div>
+  </footer>
+
+  <!-- ─── LOGIN MODAL ─── -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Iniciar Sesión</h3>
+        <button class="modal-close" onclick="closeLoginModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="loginEmail">Correo electrónico</label>
+            <input type="email" id="loginEmail" placeholder="tu@correo.com" required>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Contraseña</label>
+            <input type="password" id="loginPassword" placeholder="••••••" required>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+          </div>
+          <div class="form-footer">
+            <p>Demo: <strong>maria@demo.com</strong> / <strong>123456</strong></p>
+            <p style="margin-top: 8px; font-size: 0.85rem;">¿No tienes cuenta? <a href="#" onclick="showToast('El registro estará disponible próximamente', 'info'); return false;" style="color: var(--primary); font-weight: 600;">Regístrate aquí</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TOAST ─── -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <a href="https://wa.me/50258570841" target="_blank" rel="noopener" class="whatsapp-float" title="Escríbenos por WhatsApp">
+    <span class="whatsapp-icon">
+      <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+      </svg>
+    </span>
+  </a>
+
+  <script src="public/js/data.js"></script>
+  <script src="public/js/image-config.js"></script>
+  <script src="public/js/catalogo.js"></script>
+  <script src="public/js/carrito.js"></script>
+  <script src="public/js/reservas.js"></script>
+  <script>
+    document.getElementById('menuToggle')?.addEventListener('click', () => {
+      document.getElementById('navbarLinks').classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
