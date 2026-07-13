@@ -1123,3 +1123,43 @@ body::after {
   height: 100%;
   fill: #0c1929;
 }
+
+/* ─── Marco Floral de Pagina (4 esquinas) ─── */
+body::before,
+body::after,
+.main-content::before,
+.main-content::after {
+  content: '';
+  position: fixed;
+  width: 180px;
+  height: 180px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none'%3E%3Cpath d='M8,192 C16,164 26,138 40,114 C52,92 64,74 74,56 C80,44 82,32 78,24 C74,16 66,14 60,20 C56,24 54,32 58,38 C62,44 68,46 72,42' stroke='%23c8a44e' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M74,56 C66,46 56,42 48,46 C42,50 38,56 40,62' stroke='%23c8a44e' stroke-width='1.4' stroke-linecap='round'/%3E%3Cpath d='M40,114 C32,106 24,104 20,108 C16,112 20,118 26,120' stroke='%23c8a44e' stroke-width='1.2' stroke-linecap='round'/%3E%3Ccircle cx='78' cy='24' r='10' stroke='%23c8a44e' stroke-width='1.5'/%3E%3Ccircle cx='78' cy='24' r='6.5' stroke='%23c8a44e' stroke-width='1.1'/%3E%3Ccircle cx='78' cy='24' r='3' fill='%23c8a44e' opacity='0.35'/%3E%3Cpath d='M70,18 Q67,12 72,10 Q77,13 74,18' stroke='%23c8a44e' stroke-width='1'/%3E%3Cpath d='M84,18 Q88,12 85,8 Q81,10 82,15' stroke='%23c8a44e' stroke-width='1'/%3E%3Cpath d='M70,30 Q65,34 68,38 Q72,36 72,32' stroke='%23c8a44e' stroke-width='1'/%3E%3Cpath d='M86,26 Q90,22 88,18 Q84,22 84,26' stroke='%23c8a44e' stroke-width='1'/%3E%3Ccircle cx='40' cy='62' r='7.5' stroke='%23c8a44e' stroke-width='1.2'/%3E%3Ccircle cx='40' cy='62' r='4.5' stroke='%23c8a44e' stroke-width='0.9'/%3E%3Ccircle cx='40' cy='62' r='2' fill='%23c8a44e' opacity='0.3'/%3E%3Cpath d='M35,59 Q32,55 35,53 Q38,55 37,58' stroke='%23c8a44e' stroke-width='0.8'/%3E%3Cpath d='M44,59 Q47,55 45,52 Q42,55 42,58' stroke='%23c8a44e' stroke-width='0.8'/%3E%3Ccircle cx='26' cy='120' r='6' stroke='%23c8a44e' stroke-width='1'/%3E%3Ccircle cx='26' cy='120' r='3.5' stroke='%23c8a44e' stroke-width='0.8'/%3E%3Ccircle cx='26' cy='120' r='1.5' fill='%23c8a44e' opacity='0.25'/%3E%3Cpath d='M60,40 C55,35 50,36 48,40 C50,42 55,42 60,40Z' stroke='%23c8a44e' stroke-width='1'/%3E%3Cpath d='M53,38 L54,36' stroke='%23c8a44e' stroke-width='0.6'/%3E%3Cpath d='M32,94 C27,90 22,92 22,96 C24,98 28,96 32,94Z' stroke='%23c8a44e' stroke-width='1'/%3E%3Cpath d='M26,92 L27,90' stroke='%23c8a44e' stroke-width='0.6'/%3E%3Cpath d='M68,64 C72,60 70,56 66,58 C64,60 66,64 68,64Z' stroke='%23c8a44e' stroke-width='0.9'/%3E%3Cpath d='M18,138 C14,136 12,140 16,142 C18,140 18,138 18,138Z' stroke='%23c8a44e' stroke-width='0.9'/%3E%3Cpath d='M50,78 C45,76 42,78 44,82 C46,82 48,80 50,78Z' stroke='%23c8a44e' stroke-width='0.8'/%3E%3Cpath d='M12,160 C8,158 6,162 10,164 C12,162 12,160 12,160Z' stroke='%23c8a44e' stroke-width='0.8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+body::before {
+  top: 0;
+  left: 0;
+}
+
+body::after {
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+.main-content::before {
+  top: 0;
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.main-content::after {
+  bottom: 0;
+  left: 0;
+  transform: scaleY(-1);
+}
