@@ -1712,7 +1712,7 @@
   margin: 8px 0;
 }
 
-/* ─── Bordes Florales Decorativos (hover) ─── */
+/* ─── Bordes Florales Decorativos (ramas con rosas) ─── */
 .product-card::before,
 .product-card::after,
 .category-card::before,
@@ -1721,13 +1721,13 @@
 .card::after {
   content: '';
   position: absolute;
-  width: 120px;
-  height: 120px;
-  opacity: 0.35;
+  width: 140px;
+  height: 140px;
+  opacity: 0.55;
   transition: opacity 0.5s ease;
   pointer-events: none;
   z-index: 10;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath d='M10,110 Q20,80 35,65 Q50,50 55,30 Q58,20 52,15 Q46,10 40,18 Q35,25 38,35 Q42,48 30,62 Q18,76 15,100' fill='none' stroke='rgba(200,164,78,0.55)' stroke-width='1.5'/%3E%3Ccircle cx='52' cy='15' r='6' fill='none' stroke='rgba(200,164,78,0.5)' stroke-width='1'/%3E%3Ccircle cx='52' cy='15' r='3' fill='rgba(200,164,78,0.3)'/%3E%3Cpath d='M48,14 Q44,7 40,10 Q36,13 38,17' fill='none' stroke='rgba(200,164,78,0.4)' stroke-width='1'/%3E%3Cpath d='M56,13 Q61,7 58,4 Q55,1 51,5' fill='none' stroke='rgba(200,164,78,0.4)' stroke-width='1'/%3E%3Cpath d='M42,28 Q36,21 32,23 Q28,26 30,30' fill='none' stroke='rgba(200,164,78,0.35)' stroke-width='0.9'/%3E%3Ccircle cx='32' cy='24' r='3.5' fill='none' stroke='rgba(200,164,78,0.35)' stroke-width='0.8'/%3E%3Ccircle cx='32' cy='24' r='1.5' fill='rgba(200,164,78,0.2)'/%3E%3Cpath d='M28,50 Q22,45 19,47 Q16,50 19,54' fill='none' stroke='rgba(200,164,78,0.3)' stroke-width='0.9'/%3E%3Ccircle cx='19' cy='48' r='3' fill='none' stroke='rgba(200,164,78,0.3)' stroke-width='0.8'/%3E%3Ccircle cx='19' cy='48' r='1.2' fill='rgba(200,164,78,0.15)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg fill='none'%3E%3C!-- Rama principal --%3E%3Cpath d='M8,152 C14,130 22,112 34,94 C44,78 54,64 62,50 C68,40 70,30 66,22 C62,14 54,12 48,18 C44,22 42,30 46,36 C50,42 56,44 60,40' stroke='%23c8a44e' stroke-width='1.8' stroke-linecap='round'/%3E%3C!-- Rama secundaria --%3E%3Cpath d='M62,50 C56,42 48,38 40,42 C34,45 30,50 32,56' stroke='%23c8a44e' stroke-width='1.2' stroke-linecap='round'/%3E%3Cpath d='M34,94 C28,88 22,86 18,90 C15,94 18,100 24,102' stroke='%23c8a44e' stroke-width='1.1' stroke-linecap='round'/%3E%3C!-- Rosa grande (esquina sup) --%3E%3Ccircle cx='66' cy='22' r='8' fill='none' stroke='%23c8a44e' stroke-width='1.2'/%3E%3Ccircle cx='66' cy='22' r='5' fill='none' stroke='%23c8a44e' stroke-width='0.9'/%3E%3Ccircle cx='66' cy='22' r='2.5' fill='%23c8a44e' opacity='0.4'/%3E%3Cpath d='M60,18 Q58,14 62,12 Q66,14 64,18' fill='none' stroke='%23c8a44e' stroke-width='0.8'/%3E%3Cpath d='M70,18 Q74,14 72,10 Q68,12 68,16' fill='none' stroke='%23c8a44e' stroke-width='0.8'/%3E%3Cpath d='M60,26 Q56,30 58,34 Q62,32 62,28' fill='none' stroke='%23c8a44e' stroke-width='0.8'/%3E%3Cpath d='M72,24 Q76,20 74,16 Q70,20 70,24' fill='none' stroke='%23c8a44e' stroke-width='0.8'/%3E%3C!-- Rosa mediana --%3E%3Ccircle cx='32' cy='56' r='6' fill='none' stroke='%23c8a44e' stroke-width='1'/%3E%3Ccircle cx='32' cy='56' r='3.5' fill='none' stroke='%23c8a44e' stroke-width='0.7'/%3E%3Ccircle cx='32' cy='56' r='1.5' fill='%23c8a44e' opacity='0.35'/%3E%3Cpath d='M28,53 Q26,50 29,49 Q31,51 30,53' fill='none' stroke='%23c8a44e' stroke-width='0.7'/%3E%3Cpath d='M35,53 Q37,50 35,48 Q33,50 33,53' fill='none' stroke='%23c8a44e' stroke-width='0.7'/%3E%3C!-- Rosa pequena --%3E%3Ccircle cx='24' cy='102' r='5' fill='none' stroke='%23c8a44e' stroke-width='0.9'/%3E%3Ccircle cx='24' cy='102' r='2.5' fill='none' stroke='%23c8a44e' stroke-width='0.6'/%3E%3Ccircle cx='24' cy='102' r='1.2' fill='%23c8a44e' opacity='0.3'/%3E%3C!-- Hojas --%3E%3Cpath d='M48,38 C44,34 40,34 38,38 C40,40 44,40 48,38Z' fill='none' stroke='%23c8a44e' stroke-width='0.9'/%3E%3Cpath d='M43,36 L44,34' stroke='%23c8a44e' stroke-width='0.5'/%3E%3Cpath d='M28,82 C24,78 20,80 20,84 C22,86 26,84 28,82Z' fill='none' stroke='%23c8a44e' stroke-width='0.9'/%3E%3Cpath d='M23,80 L24,78' stroke='%23c8a44e' stroke-width='0.5'/%3E%3Cpath d='M54,60 C58,56 56,52 52,54 C50,56 52,60 54,60Z' fill='none' stroke='%23c8a44e' stroke-width='0.8'/%3E%3Cpath d='M16,110 C12,108 10,112 14,114 C16,112 16,110 16,110Z' fill='none' stroke='%23c8a44e' stroke-width='0.8'/%3E%3Cpath d='M40,68 C36,66 34,68 36,72 C38,72 40,70 40,68Z' fill='none' stroke='%23c8a44e' stroke-width='0.7'/%3E%3C/g%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -1735,15 +1735,15 @@
 .product-card::before,
 .category-card::before,
 .card::before {
-  top: -4px;
-  left: -4px;
+  top: -6px;
+  left: -6px;
 }
 
 .product-card::after,
 .category-card::after,
 .card::after {
-  bottom: -4px;
-  right: -4px;
+  bottom: -6px;
+  right: -6px;
   transform: rotate(180deg);
 }
 
@@ -1753,5 +1753,5 @@
 .category-card:hover::after,
 .card:hover::before,
 .card:hover::after {
-  opacity: 0.7;
+  opacity: 0.85;
 }
