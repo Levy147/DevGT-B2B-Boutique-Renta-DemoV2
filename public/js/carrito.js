@@ -1,6 +1,6 @@
 /**
  * ============================================================
- *  Nicol Dress Rental - Lógica de Usuario
+ *  Eli Clothe - Lógica de Usuario
  *  ============================================================
  *  Auth, Favoritos, Citas, reseñas, cross-selling, calendario.
  * ============================================================
@@ -712,4 +712,5 @@ function marcarAnuncioLeido(id) {
     localStorage.setItem('db_anuncios', JSON.stringify(anuncios));
   }
 }
+
 

@@ -1,4 +1,4 @@
-# Nicol Dress Rental
+# Eli Clothe
 
 **Sistema Demo de Alquiler de Vestidos** — Portal de Cliente + Panel Administrativo B2B
 
@@ -22,7 +22,7 @@
 
 ## Descripcion
 
-**Nicol Dress Rental** es una demo interactiva de un sistema completo de alquiler de vestidos para una boutique. Esta dividido en dos experiencias:
+**Eli Clothe** es una demo interactiva de un sistema completo de alquiler de vestidos para una boutique. Esta dividido en dos experiencias:
 
 | Portal del Cliente | Panel del Admin |
 |-------------------|-----------------|
@@ -231,7 +231,7 @@ Los vestidos con alta demanda (>20 rentas) y pocas unidades disponibles muestran
 
 ### Simulador de WhatsApp
 Desde el dashboard admin, cada cita del dia tiene un boton que abre WhatsApp con un mensaje pre-llenado:
-> "Hola [Nombre]! Te esperamos manana a las [Hora] para tu [Tipo de Cita] de [Vestido] en Nicol Dress Rental. 7av 16-21 zona 9, Guatemala."
+> "Hola [Nombre]! Te esperamos manana a las [Hora] para tu [Tipo de Cita] de [Vestido] en Eli Clothe. 7av 16-21 zona 9, Guatemala."
 
 Tambien hay un **boton flotante de WhatsApp** en todas las paginas para contacto directo.
 
@@ -271,3 +271,4 @@ Demo educativa y de ventas. Proyecto libre para presentaciones comerciales.
 ---
 
 *Desarrollado por DevGT — Empresa de Soluciones de Software*
+

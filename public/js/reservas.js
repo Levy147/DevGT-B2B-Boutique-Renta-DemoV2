@@ -1,6 +1,6 @@
 /**
  * ============================================================
- *  Nicol Dress Rental - Reservas Rápidas
+ *  Eli Clothe - Reservas Rápidas
  *  ============================================================
  *  Reserva sin login → Google Sheets + WhatsApp + localStorage
  *  También funciona con login (auto-completa datos).
@@ -281,4 +281,5 @@ function reenviarWhatsAppReserva(idReserva) {
     notas: r.notas
   });
 }
+
 
