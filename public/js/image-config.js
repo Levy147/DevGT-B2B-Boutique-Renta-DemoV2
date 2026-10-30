@@ -31,3 +31,4 @@ function getTodasLasImagenes(sku) {
 console.log(`[IMG] Configuración de imágenes cargada: ${Object.keys(_imgConfig?.Productos || {}).length} Productos`);
 
 
+

@@ -1,6 +1,6 @@
 /**
  * ============================================================
- *  Eli Clothe - Lógica del Panel Admin
+ *  Eli Boutique - Lógica del Panel Admin
  *  ============================================================
  *  Dashboard, citas con WhatsApp, inventario, estadísticas,
  *  tintorería, daños, QR.
@@ -62,7 +62,7 @@ function renderizarCitas(citas, containerId) {
     const stClass = statusClass[c.estado_cita] || 'badge-default';
     
     // WhatsApp link para recordatorio
-    const waMsg = encodeURIComponent(`¡Hola ${usuario?.nombre || ''}! Te esperamos mañana a las ${c.hora} para tu ${tipoLabel[c.tipo] || c.tipo} de ${Producto ? formatDressName(Producto) : ''} en Eli Clothe. ◎ 7av 16-21 zona 9, Guatemala.`);
+    const waMsg = encodeURIComponent(`¡Hola ${usuario?.nombre || ''}! Te esperamos mañana a las ${c.hora} para tu ${tipoLabel[c.tipo] || c.tipo} de ${Producto ? formatDressName(Producto) : ''} en Eli Boutique. ◎ 7av 16-21 zona 9, Guatemala.`);
     const waLink = usuario ? `https://wa.me/${usuario.telefono.replace(/[^0-9]/g, '')}?text=${waMsg}` : '#';
 
     return `
@@ -989,5 +989,6 @@ function mostrarCitasDelDia(dateStr) {
   overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
   document.body.appendChild(overlay);
 }
+
 
 

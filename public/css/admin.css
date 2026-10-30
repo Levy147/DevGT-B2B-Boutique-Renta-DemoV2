@@ -1,5 +1,5 @@
 /* ============================================================
-   Eli Clothe - Estilos del Panel Admin
+   Eli Boutique - Estilos del Panel Admin
    ============================================================ */
 
 /* ─── Admin Layout ─── */
@@ -964,4 +964,5 @@ tbody tr:last-child td {
 .admin-light .navbar div[style] {
   color: var(--text-muted) !important;
 }
+
 

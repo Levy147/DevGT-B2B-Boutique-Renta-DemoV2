@@ -1,8 +1,9 @@
 /* ============================================================
-   Eli Clothe - Estilos Globales
+   Eli Boutique - Estilos Globales
    Tema oscuro aqua marino dorado · Tipografia elegante
    ============================================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ─── CSS Variables (Paleta Aqua Marino Dorado) ─── */
@@ -201,9 +202,9 @@ h4 { font-size: 1.25rem; }
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: var(--text-primary);
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: 1.6rem;
+  color: var(--primary);
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1163,4 +1164,5 @@ body::after {
   left: 0;
   transform: scaleY(-1);
 }
+
 

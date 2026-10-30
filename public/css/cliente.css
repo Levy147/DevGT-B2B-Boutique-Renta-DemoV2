@@ -1,5 +1,5 @@
 /* ============================================================
-   Eli Clothe - Estilos de Cliente (Catálogo & Landing)
+   Eli Boutique - Estilos de Cliente (Catálogo & Landing)
    ============================================================ */
 
 /* ─── HERO SECTION (Landing Page) ─── */
@@ -1756,3 +1756,4 @@
 .card:hover::after {
   opacity: 0.85;
 }
+

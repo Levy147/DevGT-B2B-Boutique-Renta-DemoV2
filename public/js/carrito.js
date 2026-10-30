@@ -1,6 +1,6 @@
 /**
  * ============================================================
- *  Eli Clothe - Lógica de Usuario
+ *  Eli Boutique - Lógica de Usuario
  *  ============================================================
  *  Auth, Favoritos, Citas, reseñas, cross-selling, calendario.
  * ============================================================
@@ -712,5 +712,6 @@ function marcarAnuncioLeido(id) {
     localStorage.setItem('db_anuncios', JSON.stringify(anuncios));
   }
 }
+
 
 

@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Eli Clothe - Base de Datos Falsa (Demo)
+ * Eli Boutique - Base de Datos Falsa (Demo)
  * ============================================================
  * Este script inicializa tablas en localStorage:
  * - db_Productos  → Catálogo de Productos (+ tipo_cuerpo, corte)
@@ -242,7 +242,7 @@ function inicializarBaseDeDatos() {
       id_usuario: 102,
       nombre_usuario: 'Ana López',
       puntuacion: 5,
-      texto: 'El terciopelo es de altísima calidad. Me sentí una estrella de cine. Definitivamente volveré a rentar en Eli Clothe.',
+      texto: 'El terciopelo es de altísima calidad. Me sentí una estrella de cine. Definitivamente volveré a rentar en Eli Boutique.',
       foto: 'https://picsum.photos/seed/review5/200/200',
       fecha: '2026-05-18'
     },
@@ -295,7 +295,7 @@ function inicializarBaseDeDatos() {
   localStorage.setItem('db_reservas_rapidas', JSON.stringify([]));
   localStorage.setItem(INIT_KEY, 'true');
 
-  console.log('✓ Eli Clothe - Base de datos inicializada con éxito');
+  console.log('✓ Eli Boutique - Base de datos inicializada con éxito');
   console.log(`  [V] ${db_Productos.length} Productos`);
   console.log(`  [U] ${db_usuarios.length} usuarios`);
   console.log(`  [C] ${db_citas.length} citas`);
@@ -521,4 +521,5 @@ function isLoggedIn() {
 
 // ─── INICIALIZAR ────────────────────────────────────────────
 inicializarBaseDeDatos();
+
 

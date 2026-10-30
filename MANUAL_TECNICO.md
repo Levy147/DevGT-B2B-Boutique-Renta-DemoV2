@@ -1,4 +1,4 @@
-# 🛠️ Manual Técnico — Eli Clothe
+# 🛠️ Manual Técnico — Eli Boutique
 
 **Sistema de Alquiler de Vestidos — Demo Interactiva B2B**
 
@@ -361,7 +361,7 @@ Sin imágenes locales, el sistema usa `picsum.photos` como placeholder. Esto fun
 
 ### 10.1 Formato de SKU
 ```
-NDR-001  →  NDR = Eli Clothe, 001 = número secuencial
+NDR-001  →  NDR = Eli Boutique, 001 = número secuencial
 NDR-050  →  SKU del último vestido en la base de datos demo
 ```
 
@@ -400,7 +400,7 @@ Las variables CSS están en `:root` dentro de `public/css/main.css`:
 - **Textos:** Lato (Google Fonts)
 
 ### 11.3 Cambiar Nombre del Negocio
-1. Busca y reemplaza "Eli Clothe" en todos los archivos
+1. Busca y reemplaza "Eli Boutique" en todos los archivos
 2. Actualiza el logo en la navbar
 3. Actualiza datos de contacto en el footer
 
@@ -458,9 +458,10 @@ Para dudas técnicas sobre este proyecto demo:
 
 - **Sitio web:** codebuff.com
 - **Documentación:** codebuff.com/docs
-- **Proyecto:** Eli Clothe — Demo B2B
+- **Proyecto:** Eli Boutique — Demo B2B
 
 ---
 
 *Documento generado el 15 de junio de 2026 · Versión 1.0*
+
 
