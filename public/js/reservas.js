@@ -12,8 +12,8 @@ const WHATSAPP_NUMBER_DISPLAY = '5857-0841';
 const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwLBusrx7LI2cq4vlepZtTG6yOBQaNgS3ozZz3AimAa5DQMHMF-ClktcJNmEDFphg/exec';
 
 // ─── ABRIR MODAL DE RESERVA RÁPIDA ───
-function abrirModalReservaRapida(idVestido) {
-  const v = getVestidoById(idVestido);
+function abrirModalReservaRapida(idProducto) {
+  const v = getProductoById(idProducto);
   if (!v) return;
 
   const user = getCurrentUser();
@@ -51,7 +51,7 @@ function abrirModalReservaRapida(idVestido) {
             <input type="tel" id="reservaTelefono" placeholder="5555-0101" value="${telDefault}" required minlength="8">
           </div>
           <div class="form-group">
-            <label for="reservaFechaPrueba">¿Cuándo quieres probarte el vestido? *</label>
+            <label for="reservaFechaPrueba">¿Cuándo quieres probarte el Producto? *</label>
             <input type="date" id="reservaFechaPrueba" required min="${new Date().toISOString().split('T')[0]}">
           </div>
           <div class="form-group">
@@ -102,7 +102,7 @@ function abrirModalLoginDesdeReserva() {
 }
 
 // ─── CONFIRMAR RESERVA RÁPIDA ───
-function confirmarReservaRapida(e, idVestido) {
+function confirmarReservaRapida(e, idProducto) {
   e.preventDefault();
 
   const nombre = document.getElementById('reservaNombre').value.trim();
@@ -121,7 +121,7 @@ function confirmarReservaRapida(e, idVestido) {
     return;
   }
 
-  const v = getVestidoById(idVestido);
+  const v = getProductoById(idProducto);
   if (!v) return;
 
   const user = getCurrentUser();
@@ -131,9 +131,9 @@ function confirmarReservaRapida(e, idVestido) {
     nombre,
     telefono,
     id_usuario: user ? user.id : null,
-    id_vestido: v.id,
+    id_Producto: v.id,
     sku: v.sku,
-    nombre_vestido: v.nombre,
+    nombre_Producto: v.nombre,
     categoria: v.categoria,
     precio_renta: v.precio_renta,
     fecha_prueba: fechaPrueba,
@@ -152,27 +152,27 @@ function confirmarReservaRapida(e, idVestido) {
   cerrarModalReservaRapida();
 
   // 4. Enviar a Google Sheets
-  enviarReservaGoogleSheet({ nombre, telefono, vestido: v, fechaPrueba, fechaEvento, notas, fechaReserva: reserva.fecha_reserva });
+  enviarReservaGoogleSheet({ nombre, telefono, Producto: v, fechaPrueba, fechaEvento, notas, fechaReserva: reserva.fecha_reserva });
 
   // 5. Abrir WhatsApp
   setTimeout(() => {
-    enviarWhatsAppReserva({ nombre, telefono, vestido: v, fechaPrueba, fechaEvento, notas });
+    enviarWhatsAppReserva({ nombre, telefono, Producto: v, fechaPrueba, fechaEvento, notas });
   }, 500);
 }
 
 // ─── ENVIAR A GOOGLE SHEETS ───
 function enviarReservaGoogleSheet(data) {
-  const { nombre, telefono, vestido, fechaPrueba, fechaEvento, notas, fechaReserva } = data;
+  const { nombre, telefono, Producto, fechaPrueba, fechaEvento, notas, fechaReserva } = data;
 
   const payload = {
     fecha_reserva: fechaReserva,
     nombre,
     telefono,
-    sku: vestido.sku,
-    nombre_vestido: vestido.nombre,
-    categoria: vestido.categoria,
-    color: vestido.color,
-    precio_renta: vestido.precio_renta,
+    sku: Producto.sku,
+    nombre_Producto: Producto.nombre,
+    categoria: Producto.categoria,
+    color: Producto.color,
+    precio_renta: Producto.precio_renta,
     fecha_prueba: fechaPrueba,
     fecha_evento: fechaEvento,
     notas: notas || ''
@@ -193,15 +193,15 @@ function enviarReservaGoogleSheet(data) {
 
 // ─── ENVIAR WHATSAPP ───
 function enviarWhatsAppReserva(data) {
-  const { nombre, telefono, vestido, fechaPrueba, fechaEvento, notas } = data;
+  const { nombre, telefono, Producto, fechaPrueba, fechaEvento, notas } = data;
 
   const msg = [
-    `Hola, quiero reservar un vestido:`,
+    `Hola, quiero reservar un Producto:`,
     ``,
-    `${vestido.nombre}`,
-    `SKU: ${vestido.sku}`,
-    `Categoria: ${vestido.categoria}`,
-    `Precio: Q${(vestido.precio_renta || 0).toLocaleString()}`,
+    `${Producto.nombre}`,
+    `SKU: ${Producto.sku}`,
+    `Categoria: ${Producto.categoria}`,
+    `Precio: Q${(Producto.precio_renta || 0).toLocaleString()}`,
     ``,
     `Quiero probarmelo el: ${fechaPrueba}`,
     `Mi evento es el: ${fechaEvento}`,
@@ -236,13 +236,13 @@ function showReservasRapidas() {
   `;
 
   if (reservas.length === 0) {
-    html += `<div class="empty-state"><div class="empty-icon">*</div><h3>No tienes reservas</h3><p>Reserva un vestido desde su pagina de detalle</p></div>`;
+    html += `<div class="empty-state"><div class="empty-icon">*</div><h3>No tienes reservas</h3><p>Reserva un Producto desde su pagina de detalle</p></div>`;
   } else {
     reservas.reverse().forEach(r => {
       html += `
         <div class="appointment-card">
           <div>
-            <h4>${r.nombre_vestido}</h4>
+            <h4>${r.nombre_Producto}</h4>
             <p style="font-size:0.85rem;color:var(--text-muted);">${r.sku} · ${r.categoria}</p>
             <p>Prueba: ${r.fecha_prueba} · Evento: ${r.fecha_evento}</p>
             ${r.notas ? `<p style="font-size:0.8rem;color:var(--text-muted);font-style:italic;">"${r.notas}"</p>` : ''}
@@ -271,13 +271,14 @@ function reenviarWhatsAppReserva(idReserva) {
   const r = reservas.find(res => res.id_reserva === idReserva);
   if (!r) return;
 
-  const vestido = getVestidoById(r.id_vestido) || { nombre: r.nombre_vestido, sku: r.sku, categoria: r.categoria, precio_renta: r.precio_renta };
+  const Producto = getProductoById(r.id_Producto) || { nombre: r.nombre_Producto, sku: r.sku, categoria: r.categoria, precio_renta: r.precio_renta };
   enviarWhatsAppReserva({
     nombre: r.nombre,
     telefono: r.telefono,
-    vestido,
+    Producto,
     fechaPrueba: r.fecha_prueba,
     fechaEvento: r.fecha_evento,
     notas: r.notas
   });
 }
+

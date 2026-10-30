@@ -193,7 +193,7 @@ function showMyAppointments() {
     html += `<div class="empty-state"><div class="empty-icon">◷</div><h3>No tienes citas</h3><p>Agenda una cita desde el catálogo</p></div>`;
   } else {
     html += citas.map(c => {
-      const v = getVestidoById(c.id_vestido);
+      const v = getProductoById(c.id_Producto);
       const st = statusMap[c.estado_cita] || { label: c.estado_cita, class: 'badge-default' };
       const tipoLabel = { prueba: 'Prueba', renta: 'Renta', devolucion: 'Devolución' };
 
@@ -204,7 +204,7 @@ function showMyAppointments() {
       return `
         <div class="appointment-card">
           <div>
-            <h4>${v ? v.nombre : 'Vestido #' + c.id_vestido}</h4>
+            <h4>${v ? v.nombre : 'Producto #' + c.id_Producto}</h4>
             <p>${c.fecha} · ${c.hora} · ${tipoLabel[c.tipo] || c.tipo}</p>
             ${c.notas ? `<p style="font-size:0.8rem;color:var(--text-muted);font-style:italic;">"${c.notas}"</p>` : ''}
             ${!puedeCancelar && (c.estado_cita === 'pendiente' || c.estado_cita === 'confirmada') ? `<p style="font-size:0.75rem;color:var(--danger);">Las citas deben cancelarse con al menos 2 días de antelación</p>` : ''}
@@ -248,13 +248,13 @@ function cancelarCita(idCita) {
 
 function reprogramarCita(idCita) {
   reprogramandoCitaId = idCita;
-  showToast('Selecciona una nueva fecha y hora en el calendario del vestido', 'info');
+  showToast('Selecciona una nueva fecha y hora en el calendario del Producto', 'info');
   const overlay = document.querySelector('.modal-overlay.open');
   if (overlay) overlay.remove();
   const citas = getCitas();
   const cita = citas.find(c => c.id_cita === idCita);
   if (cita) {
-    window.location.href = `vestido.html?id=${cita.id_vestido}&reprogramar=${idCita}`;
+    window.location.href = `Producto.html?id=${cita.id_Producto}&reprogramar=${idCita}`;
   }
 }
 
@@ -281,7 +281,7 @@ function showMyRentals() {
     html += `<div class="empty-state"><div class="empty-icon">◷</div><h3>No tienes rentas</h3><p>Las rentas que realices aparecerán aquí</p></div>`;
   } else {
     html += citas.map(c => {
-      const v = getVestidoById(c.id_vestido);
+      const v = getProductoById(c.id_Producto);
       const statusMap = {
         pendiente: { label: 'Pendiente', class: 'badge-warning' },
         confirmada: { label: 'Confirmada', class: 'badge-success' },
@@ -294,7 +294,7 @@ function showMyRentals() {
       return `
         <div class="appointment-card">
           <div>
-            <h4>${v ? v.nombre : 'Vestido #' + c.id_vestido}</h4>
+            <h4>${v ? v.nombre : 'Producto #' + c.id_Producto}</h4>
             <p>${c.fecha} · ${c.hora} · ${tipoLabel[c.tipo] || c.tipo}</p>
             ${c.notas ? `<p style="font-size:0.8rem;color:var(--text-muted);font-style:italic;">"${c.notas}"</p>` : ''}
           </div>
@@ -322,14 +322,14 @@ function closeModal(el) {
   el.closest('.modal-overlay')?.remove();
 }
 
-// ─── RENDERIZAR VESTIDO DETALLE ───
-function renderizarVestido(id) {
-  const v = getVestidoById(id);
+// ─── RENDERIZAR Producto DETALLE ───
+function renderizarProducto(id) {
+  const v = getProductoById(id);
   if (!v) {
     document.getElementById('productDetail').innerHTML = `
       <div class="empty-state" style="grid-column:1/-1;">
         <div class="empty-icon"></div>
-        <h3>Vestido no encontrado</h3>
+        <h3>Producto no encontrado</h3>
         <a href="catalogo.html" class="btn btn-primary">Volver al catálogo</a>
       </div>
     `;
@@ -371,7 +371,7 @@ function renderizarVestido(id) {
   ` : '';
 
   // Reseñas
-  const resenas = getResenasByVestido(v.id);
+  const resenas = getResenasByProducto(v.id);
   const resHtml = resenas.length > 0 ? `
     <div class="reviews-section">
       <h4>Reseñas de Clientes</h4>
@@ -431,7 +431,7 @@ function renderizarVestido(id) {
       <div class="product-actions">
         ${v.estado === 'lavanderia' || v.estado === 'reparacion' ? 
           `<div style="padding:12px;background:#fff3e0;border-radius:8px;text-align:center;color:#e65100;font-weight:600;">
-            Este vestido no está disponible actualmente (${v.estado === 'lavanderia' ? 'en lavandería' : 'en reparación'})
+            Este Producto no está disponible actualmente (${v.estado === 'lavanderia' ? 'en lavandería' : 'en reparación'})
           </div>` :
           `<button class="btn btn-primary btn-lg" onclick="agendarCita(${v.id})">
             Agendar Cita de Prueba
@@ -473,24 +473,24 @@ function cambiarImagenPrincipal(thumb, src) {
   document.getElementById('mainImage').src = src;
 }
 
-function toggleFavoritoDetail(idVestido) {
+function toggleFavoritoDetail(idProducto) {
   const user = getCurrentUser();
   if (!user) {
     showToast('Inicia sesión para guardar favoritos', 'warning');
     openLoginModal();
     return;
   }
-  toggleFavorito(user.id, idVestido);
-  const isFav = esFavorito(user.id, idVestido);
-  showToast(isFav ? '♥ Vestido guardado en tu Wishlist!' : '♡ Eliminado de favoritos', isFav ? 'success' : 'info');
-  renderizarVestido(idVestido); // Re-render
+  toggleFavorito(user.id, idProducto);
+  const isFav = esFavorito(user.id, idProducto);
+  showToast(isFav ? '♥ Producto guardado en tu Wishlist!' : '♡ Eliminado de favoritos', isFav ? 'success' : 'info');
+  renderizarProducto(idProducto); // Re-render
 }
 
 // ─── CALENDARIO ───
 let calendarDate = new Date();
 let selectedDate = null;
 let selectedTime = null;
-let currentVestidoId = null;
+let currentProductoId = null;
 let reprogramandoCitaId = null;
 
 function renderCalendar() {
@@ -581,13 +581,13 @@ function selectTime(time, el) {
   document.getElementById('appointmentActions').style.display = 'block';
 }
 
-function agendarCita(idVestido) {
-  currentVestidoId = idVestido;
+function agendarCita(idProducto) {
+  currentProductoId = idProducto;
   const user = getCurrentUser();
   if (user) {
     document.getElementById('calendarSection')?.scrollIntoView({ behavior: 'smooth' });
   } else {
-    abrirModalReservaRapida(idVestido);
+    abrirModalReservaRapida(idProducto);
   }
 }
 
@@ -598,7 +598,7 @@ function confirmarCita() {
     return;
   }
 
-  if (!selectedDate || !selectedTime || !currentVestidoId) {
+  if (!selectedDate || !selectedTime || !currentProductoId) {
     showToast('Selecciona fecha y hora', 'warning');
     return;
   }
@@ -615,14 +615,14 @@ function confirmarCita() {
     }
     reprogramandoCitaId = null;
   } else {
-    agregarCita(user.id, currentVestidoId, selectedDate, selectedTime, 'prueba', '');
-    const v = getVestidoById(currentVestidoId);
+    agregarCita(user.id, currentProductoId, selectedDate, selectedTime, 'prueba', '');
+    const v = getProductoById(currentProductoId);
     showToast(`✓ Cita agendada para probar "${v?.nombre}" el ${selectedDate} a las ${selectedTime}`, 'success');
   }
 
   selectedDate = null;
   selectedTime = null;
-  currentVestidoId = null;
+  currentProductoId = null;
   renderCalendar();
 }
 
@@ -712,3 +712,4 @@ function marcarAnuncioLeido(id) {
     localStorage.setItem('db_anuncios', JSON.stringify(anuncios));
   }
 }
+

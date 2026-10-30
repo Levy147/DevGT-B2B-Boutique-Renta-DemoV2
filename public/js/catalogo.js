@@ -19,12 +19,12 @@ const estadoFiltros = {
   sort: 'default'
 };
 
-// ─── CREAR CARD DE VESTIDO ───
-function crearCardVestido(v) {
+// ─── CREAR CARD DE Producto ───
+function crearCardProducto(v) {
   const estadoClass = v.estado === 'disponible' && v.disponibles > 0 ? 'badge-success' : 'badge-danger';
   const estadoText = v.estado === 'disponible' && v.disponibles > 0 ? 'Disponible' : 'Agotado';
   
-  // Gatillo de urgencia: si el vestido tiene alta demanda (>20 rentas) y pocos disponibles
+  // Gatillo de urgencia: si el Producto tiene alta demanda (>20 rentas) y pocos disponibles
   const showUrgency = v.rentas_completadas > 20 && v.disponibles <= 2 && v.disponibles > 0;
   const currentUser = getCurrentUser();
   const isFav = currentUser ? esFavorito(currentUser.id, v.id) : false;
@@ -32,10 +32,10 @@ function crearCardVestido(v) {
   const isAdmin = currentUser?.correo === 'admin@boutique.com';
 
   return `
-    <div class="product-card" onclick="window.location.href='vestido.html?id=${v.id}'">
+    <div class="product-card" onclick="window.location.href='Producto.html?id=${v.id}'">
       <div class="product-card-image">
         <img src="${getImageUrl(v)}" alt="${v.nombre}" loading="lazy">
-        ${isAdmin ? `<a href="admin/inventario.html?edit=${v.id}" class="admin-edit-btn" onclick="event.stopPropagation()" title="Editar vestido">✎</a>` : ''}
+        ${isAdmin ? `<a href="admin/inventario.html?edit=${v.id}" class="admin-edit-btn" onclick="event.stopPropagation()" title="Editar Producto">✎</a>` : ''}
         <button class="favorite-btn ${isFav ? 'active' : ''}" 
                 onclick="event.stopPropagation(); toggleFavoritoCatalog(${v.id})"
                 title="${isFav ? 'Quitar de favoritos' : 'Agregar a favoritos'}">
@@ -63,28 +63,28 @@ function crearCardVestido(v) {
   `;
 }
 
-// ─── RENDERIZAR VESTIDOS ───
-function renderizarVestidos(vestidos) {
+// ─── RENDERIZAR Productos ───
+function renderizarProductos(Productos) {
   const grid = document.getElementById('catalogGrid');
   const count = document.getElementById('resultCount');
 
   if (!grid) return;
 
-  if (vestidos.length === 0) {
+  if (Productos.length === 0) {
     grid.innerHTML = `
       <div class="catalog-empty" style="grid-column:1/-1;">
         <div class="empty-icon">◈</div>
-        <h3>No encontramos vestidos</h3>
+        <h3>No encontramos Productos</h3>
         <p>Intenta con otros filtros o categorías</p>
         <button class="btn btn-secondary mt-3" onclick="limpiarFiltros()">Limpiar filtros</button>
       </div>
     `;
-    if (count) count.textContent = 'Mostrando 0 vestidos';
+    if (count) count.textContent = 'Mostrando 0 Productos';
     return;
   }
 
-  grid.innerHTML = vestidos.map(v => crearCardVestido(v)).join('');
-  if (count) count.textContent = `Mostrando ${vestidos.length} vestidos`;
+  grid.innerHTML = Productos.map(v => crearCardProducto(v)).join('');
+  if (count) count.textContent = `Mostrando ${Productos.length} Productos`;
 }
 
 // ─── APLICAR FILTROS ───
@@ -104,9 +104,9 @@ function aplicarFiltros() {
   estadoFiltros.soloVenta = soloVenta ? soloVenta.checked : false;
   estadoFiltros.sort = sortSelect ? sortSelect.value : 'default';
 
-  let resultados = getVestidos();
+  let resultados = getProductos();
 
-  // Excluir vestidos en lavandería o reparación (ocultos del catálogo público)
+  // Excluir Productos en lavandería o reparación (ocultos del catálogo público)
   resultados = resultados.filter(v => v.estado !== 'lavanderia' && v.estado !== 'reparacion');
 
     // Filtro categoría
@@ -164,7 +164,7 @@ function aplicarFiltros() {
       break;
   }
 
-  renderizarVestidos(resultados);
+  renderizarProductos(resultados);
 }
 
 // ─── FILTROS INDIVIDUALES ───
@@ -227,16 +227,16 @@ function limpiarFiltros() {
 }
 
 // ─── TOGGLE FAVORITO DESDE CATÁLOGO ───
-function toggleFavoritoCatalog(idVestido) {
+function toggleFavoritoCatalog(idProducto) {
   const user = getCurrentUser();
   if (!user) {
     showToast('Debes iniciar sesión para guardar favoritos', 'warning');
     openLoginModal();
     return;
   }
-  toggleFavorito(user.id, idVestido);
-  const isFav = esFavorito(user.id, idVestido);
-  showToast(isFav ? '¡Vestido guardado en tu Wishlist!' : ' Eliminado de favoritos', isFav ? 'success' : 'info');
+  toggleFavorito(user.id, idProducto);
+  const isFav = esFavorito(user.id, idProducto);
+  showToast(isFav ? '¡Producto guardado en tu Wishlist!' : ' Eliminado de favoritos', isFav ? 'success' : 'info');
   aplicarFiltros(); // Re-render para actualizar el corazón
 }
 
@@ -259,8 +259,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (tab === 'favoritos') {
     const user = getCurrentUser();
     if (user) {
-      const favoritos = getVestidosFavoritos(user.favoritos);
-      renderizarVestidos(favoritos);
+      const favoritos = getProductosFavoritos(user.favoritos);
+      renderizarProductos(favoritos);
       const count = document.getElementById('resultCount');
       if (count) count.textContent = 'Mostrando favoritos';
       return;
@@ -271,3 +271,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   aplicarFiltros();
 });
+

@@ -9,15 +9,15 @@
 
 // ─── DASHBOARD ───
 function cargarDashboard() {
-  const vestidos = getVestidos();
+  const Productos = getProductos();
   const citas = getCitas();
   const today = new Date().toISOString().split('T')[0];
 
   // Stats
   const citasHoy = citas.filter(c => c.fecha === today);
-  const disponibles = vestidos.filter(v => v.estado === 'disponible' && v.disponibles > 0);
-  const lavanderia = vestidos.filter(v => v.estado === 'lavanderia');
-  const reparacion = vestidos.filter(v => v.estado === 'reparacion');
+  const disponibles = Productos.filter(v => v.estado === 'disponible' && v.disponibles > 0);
+  const lavanderia = Productos.filter(v => v.estado === 'lavanderia');
+  const reparacion = Productos.filter(v => v.estado === 'reparacion');
 
   const el = (id) => document.getElementById(id);
   if (el('statCitasHoy')) el('statCitasHoy').textContent = citasHoy.length;
@@ -58,17 +58,17 @@ function renderizarCitas(citas, containerId) {
 
   body.innerHTML = citas.map(c => {
     const usuario = getUsuarioById(c.id_usuario);
-    const vestido = getVestidoById(c.id_vestido);
+    const Producto = getProductoById(c.id_Producto);
     const stClass = statusClass[c.estado_cita] || 'badge-default';
     
     // WhatsApp link para recordatorio
-    const waMsg = encodeURIComponent(`¡Hola ${usuario?.nombre || ''}! Te esperamos mañana a las ${c.hora} para tu ${tipoLabel[c.tipo] || c.tipo} de ${vestido ? formatDressName(vestido) : ''} en Nicol Dress Rental. ◎ 7av 16-21 zona 9, Guatemala.`);
+    const waMsg = encodeURIComponent(`¡Hola ${usuario?.nombre || ''}! Te esperamos mañana a las ${c.hora} para tu ${tipoLabel[c.tipo] || c.tipo} de ${Producto ? formatDressName(Producto) : ''} en Nicol Dress Rental. ◎ 7av 16-21 zona 9, Guatemala.`);
     const waLink = usuario ? `https://wa.me/${usuario.telefono.replace(/[^0-9]/g, '')}?text=${waMsg}` : '#';
 
     return `
       <tr>
         <td><strong>${usuario ? usuario.nombre : 'Usuario #' + c.id_usuario}</strong><br><span style="font-size:0.75rem;color:var(--text-muted);">${usuario ? usuario.correo : ''}</span></td>
-        <td>${vestido ? formatDressName(vestido) : '#' + c.id_vestido}</td>
+        <td>${Producto ? formatDressName(Producto) : '#' + c.id_Producto}</td>
         <td>${c.fecha}</td>
         <td>${c.hora}</td>
         <td>${tipoLabel[c.tipo] || c.tipo}</td>
@@ -98,18 +98,18 @@ function cargarEstadisticas() {
   const chart = document.getElementById('chartBars');
   if (!chart) return;
 
-  const vestidos = getVestidos().filter(v => v.rentas_completadas > 0);
-  const topVestidos = vestidos.sort((a, b) => b.rentas_completadas - a.rentas_completadas).slice(0, 5);
-  const maxRentas = Math.max(...topVestidos.map(v => v.rentas_completadas));
+  const Productos = getProductos().filter(v => v.rentas_completadas > 0);
+  const topProductos = Productos.sort((a, b) => b.rentas_completadas - a.rentas_completadas).slice(0, 5);
+  const maxRentas = Math.max(...topProductos.map(v => v.rentas_completadas));
   const barColors = ['#a8445c', '#c45a74', '#c9788a', '#b8926b', '#7a2d42'];
 
   chart.innerHTML = `
     <div class="chart-header">
-      <h4>Vestidos M&aacute;s Rentados</h4>
+      <h4>Productos M&aacute;s Rentados</h4>
       <span class="chart-subtitle">Top 5 &middot; Rentas completadas</span>
     </div>
     <div class="chart-body">
-      ${topVestidos.map((v, i) => {
+      ${topProductos.map((v, i) => {
         const pct = (v.rentas_completadas / maxRentas) * 100;
         return `
           <div class="chart-bar-group">
@@ -132,7 +132,7 @@ function cargarEstadisticas() {
     </div>
   `;
   setTimeout(() => {
-    topVestidos.forEach((v, i) => {
+    topProductos.forEach((v, i) => {
       const bar = document.getElementById(`chartBar_${i}`);
       if (bar) {
         const pct = (v.rentas_completadas / maxRentas) * 100;
@@ -159,13 +159,13 @@ function cargarDanos() {
   };
 
   body.innerHTML = danos.map(d => {
-    const v = getVestidoById(d.id_vestido);
+    const v = getProductoById(d.id_Producto);
     const u = getUsuarioById(d.id_usuario);
     const tipoClass = d.tipo === 'Menor' ? 'badge-warning' : 'badge-danger';
     const sc = statusColors[d.estado] || statusColors.pendiente;
     return `
       <tr>
-        <td><strong>${v ? formatDressName(v) : '#' + d.id_vestido}</strong></td>
+        <td><strong>${v ? formatDressName(v) : '#' + d.id_Producto}</strong></td>
         <td>${u ? u.nombre : '#' + d.id_usuario}</td>
         <td class="damage-desc">${d.descripcion}</td>
         <td><span class="badge ${tipoClass}">${d.tipo}</span></td>
@@ -193,11 +193,11 @@ function abrirFormularioDano(editData) {
   document.getElementById('danoEditId').value = '';
 
   // Llenar selects
-  const vestidoSelect = document.getElementById('danoVestido');
+  const Productoselect = document.getElementById('danoProducto');
   const clienteSelect = document.getElementById('danoCliente');
 
-    vestidoSelect.innerHTML = '<option value="">Seleccionar vestido</option>' +
-    getVestidos().map(v => `<option value="${v.id}">${formatDressName(v)}</option>`).join('');
+    Productoselect.innerHTML = '<option value="">Seleccionar Producto</option>' +
+    getProductos().map(v => `<option value="${v.id}">${formatDressName(v)}</option>`).join('');
 
   clienteSelect.innerHTML = '<option value="">Seleccionar cliente</option>' +
     getUsuarios().filter(u => u.rol !== 'admin').map(u => `<option value="${u.id}">${u.nombre} (${u.correo})</option>`).join('');
@@ -205,7 +205,7 @@ function abrirFormularioDano(editData) {
   if (editData) {
     document.getElementById('danoFormTitle').textContent = 'Editar Daño';
     document.getElementById('danoEditId').value = editData.id;
-    document.getElementById('danoVestido').value = editData.id_vestido;
+    document.getElementById('danoProducto').value = editData.id_Producto;
     document.getElementById('danoCliente').value = editData.id_usuario;
     document.getElementById('danoDescripcion').value = editData.descripcion;
     document.getElementById('danoTipo').value = editData.tipo;
@@ -226,7 +226,7 @@ function guardarDano(e) {
   e.preventDefault();
   const editId = document.getElementById('danoEditId').value;
   const data = {
-    id_vestido: parseInt(document.getElementById('danoVestido').value),
+    id_Producto: parseInt(document.getElementById('danoProducto').value),
     id_usuario: parseInt(document.getElementById('danoCliente').value),
     descripcion: document.getElementById('danoDescripcion').value,
     tipo: document.getElementById('danoTipo').value,
@@ -243,11 +243,11 @@ function guardarDano(e) {
     }
     showToast('Daño actualizado', 'success');
   } else {
-    const v = getVestidoById(data.id_vestido);
+    const v = getProductoById(data.id_Producto);
     const u = getUsuarioById(data.id_usuario);
     data.id = Date.now();
     data.fecha_reporte = new Date().toISOString().split('T')[0];
-    agregarDano(null, data.id_vestido, data.id_usuario, data.descripcion, data.tipo, data.deposito_retener);
+    agregarDano(null, data.id_Producto, data.id_usuario, data.descripcion, data.tipo, data.deposito_retener);
     // Override estado if set to resuelto
     if (data.estado === 'resuelto') {
       const danos = getDanos();
@@ -255,7 +255,7 @@ function guardarDano(e) {
       if (d) { d.estado = 'resuelto'; }
       localStorage.setItem('db_danos', JSON.stringify(danos));
     }
-    showToast(`Daño registrado para "${v ? formatDressName(v) : '#' + data.id_vestido}"`, 'success');
+    showToast(`Daño registrado para "${v ? formatDressName(v) : '#' + data.id_Producto}"`, 'success');
   }
 
   cerrarFormularioDano();
@@ -294,12 +294,12 @@ function cargarTintoreria() {
   const list = document.getElementById('lavanderiaList');
   if (!list) return;
 
-  const enLavanderia = getVestidos().filter(v => v.estado === 'lavanderia' || v.estado === 'reparacion');
+  const enLavanderia = getProductos().filter(v => v.estado === 'lavanderia' || v.estado === 'reparacion');
   const lavanderia = enLavanderia.filter(v => v.estado === 'lavanderia');
   const reparacion = enLavanderia.filter(v => v.estado === 'reparacion');
 
   if (enLavanderia.length === 0) {
-    list.innerHTML = `<div class="empty-state" style="padding:24px;text-align:center;color:var(--text-muted);">No hay vestidos en tintorería o reparación</div>`;
+    list.innerHTML = `<div class="empty-state" style="padding:24px;text-align:center;color:var(--text-muted);">No hay Productos en tintorería o reparación</div>`;
     return;
   }
 
@@ -375,7 +375,7 @@ function cargarTintoreria() {
 }
 
 function editarEstadoLavanderia(id) {
-  const v = getVestidoById(id);
+  const v = getProductoById(id);
   if (!v) return;
 
   const overlay = document.createElement('div');
@@ -415,14 +415,14 @@ function guardarEstadoLavanderia(event, id) {
   const nuevoEstado = document.getElementById('lavEditEstado').value;
   const nuevaFecha = document.getElementById('lavEditFecha').value;
 
-  const vestidos = getVestidos();
-  const idx = vestidos.findIndex(v => v.id === id);
+  const Productos = getProductos();
+  const idx = Productos.findIndex(v => v.id === id);
   if (idx === -1) return;
 
-  vestidos[idx].estado = nuevoEstado;
-  vestidos[idx].fecha_retorno_lavanderia = nuevaFecha || '';
-  saveVestidos(vestidos);
-  showToast(`"${vestidos[idx].nombre}" actualizado: ${nuevoEstado}`, 'success');
+  Productos[idx].estado = nuevoEstado;
+  Productos[idx].fecha_retorno_lavanderia = nuevaFecha || '';
+  saveProductos(Productos);
+  showToast(`"${Productos[idx].nombre}" actualizado: ${nuevoEstado}`, 'success');
   event.target.closest('.modal-overlay').remove();
   cargarTintoreria();
 }
@@ -442,12 +442,12 @@ function renderizarInventario() {
   const body = document.getElementById('inventarioBody');
   if (!body) return;
 
-  let vestidos = getVestidos();
+  let Productos = getProductos();
   const search = document.getElementById('inventarioSearch')?.value.toLowerCase().trim();
 
   if (search) {
     const sku = v => (v.sku || `NDR-${String(v.id).padStart(3, '0')}`).toLowerCase();
-    vestidos = vestidos.filter(v =>
+    Productos = Productos.filter(v =>
       v.nombre.toLowerCase().includes(search) ||
       sku(v).includes(search) ||
       v.categoria.toLowerCase().includes(search) ||
@@ -455,10 +455,10 @@ function renderizarInventario() {
     );
   }
 
-  const totalPages = Math.ceil(vestidos.length / INVENTARIO_POR_PAGINA);
+  const totalPages = Math.ceil(Productos.length / INVENTARIO_POR_PAGINA);
   if (inventarioPagina > totalPages) inventarioPagina = totalPages || 1;
   const start = (inventarioPagina - 1) * INVENTARIO_POR_PAGINA;
-  const pageVestidos = vestidos.slice(start, start + INVENTARIO_POR_PAGINA);
+  const pageProductos = Productos.slice(start, start + INVENTARIO_POR_PAGINA);
 
   const estadoClass = {
     disponible: 'badge-success',
@@ -467,13 +467,13 @@ function renderizarInventario() {
     reparacion: 'badge-info'
   };
 
-  if (pageVestidos.length === 0) {
-    body.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:32px;color:var(--text-muted);">No se encontraron vestidos</td></tr>`;
+  if (pageProductos.length === 0) {
+    body.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:32px;color:var(--text-muted);">No se encontraron Productos</td></tr>`;
     updatePagination(0, 0);
     return;
   }
 
-  body.innerHTML = pageVestidos.map(v => `
+  body.innerHTML = pageProductos.map(v => `
     <tr>
       <td><span style="font-family:monospace;font-size:0.8rem;background:var(--bg-light);padding:2px 6px;border-radius:4px;">${v.sku || 'NDR-'+String(v.id).padStart(3,'0')}</span></td>
       <td><strong>${v.nombre}</strong></td>
@@ -482,7 +482,7 @@ function renderizarInventario() {
       <td>${Array.isArray(v.talla) ? v.talla.join(', ') : v.talla || ''}</td>
       <td>${(v.precio_renta || 0).toLocaleString('es-GT', { style: 'currency', currency: 'GTQ' })}</td>
       <td>
-        <select class="estado-select" data-id="${v.id}" onchange="cambiarEstadoVestido(${v.id}, this.value)" style="width:auto;padding:4px 8px;font-size:0.8rem;">
+        <select class="estado-select" data-id="${v.id}" onchange="cambiarEstadoProducto(${v.id}, this.value)" style="width:auto;padding:4px 8px;font-size:0.8rem;">
           <option value="disponible" ${v.estado === 'disponible' ? 'selected' : ''}>Disponible</option>
           <option value="agotado" ${v.estado === 'agotado' ? 'selected' : ''}>Agotado</option>
           <option value="lavanderia" ${v.estado === 'lavanderia' ? 'selected' : ''}>Lavandería</option>
@@ -492,9 +492,9 @@ function renderizarInventario() {
       <td>${v.disponibles}</td>
       <td>
         <div class="table-actions">
-          <button class="btn btn-sm btn-secondary" onclick="editarVestido(${v.id})">✎</button>
+          <button class="btn btn-sm btn-secondary" onclick="editarProducto(${v.id})">✎</button>
           <button class="btn btn-sm btn-outline" onclick="generarQR(${v.id})"> QR</button>
-          <button class="btn btn-sm btn-danger" onclick="eliminarVestido(${v.id})">✕</button>
+          <button class="btn btn-sm btn-danger" onclick="eliminarProducto(${v.id})">✕</button>
         </div>
       </td>
     </tr>
@@ -518,22 +518,22 @@ function updatePagination(current, total) {
   container.innerHTML = html;
 }
 
-function cambiarEstadoVestido(id, nuevoEstado) {
-  const vestidos = getVestidos();
-  const v = vestidos.find(v => v.id === id);
+function cambiarEstadoProducto(id, nuevoEstado) {
+  const Productos = getProductos();
+  const v = Productos.find(v => v.id === id);
   if (v) {
     v.estado = nuevoEstado;
-    saveVestidos(vestidos);
+    saveProductos(Productos);
     showToast(`"${formatDressName(v)}" ahora está: ${nuevoEstado}`, 'info');
   }
 }
 
 // ─── CRUD ───
 function abrirFormularioNuevo() {
-    document.getElementById('formTitle').textContent = '+ Agregar Nuevo Vestido';
+    document.getElementById('formTitle').textContent = '+ Agregar Nuevo Producto';
   document.getElementById('editId').value = '';
-  document.getElementById('vestidoForm').style.display = 'block';
-  document.getElementById('vestidoForm').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('ProductoForm').style.display = 'block';
+  document.getElementById('ProductoForm').scrollIntoView({ behavior: 'smooth' });
 
   // Reset
   ['vNombre', 'vCategoria', 'vColor', 'vTallas', 'vPrecioRenta', 'vPrecioVenta',
@@ -546,10 +546,10 @@ function abrirFormularioNuevo() {
 }
 
 function cerrarFormulario() {
-  document.getElementById('vestidoForm').style.display = 'none';
+  document.getElementById('ProductoForm').style.display = 'none';
 }
 
-function guardarVestido(e) {
+function guardarProducto(e) {
   e.preventDefault();
 
   const editId = document.getElementById('editId').value;
@@ -576,34 +576,34 @@ function guardarVestido(e) {
     imagenes_extra: []
   };
 
-  let vestidos = getVestidos();
+  let Productos = getProductos();
 
   if (editId) {
-    const idx = vestidos.findIndex(v => v.id === parseInt(editId));
+    const idx = Productos.findIndex(v => v.id === parseInt(editId));
     if (idx !== -1) {
-      if (!data.sku) data.sku = vestidos[idx].sku || `NDR-${String(vestidos[idx].id).padStart(3, '0')}`;
-      vestidos[idx] = { ...vestidos[idx], ...data };
+      if (!data.sku) data.sku = Productos[idx].sku || `NDR-${String(Productos[idx].id).padStart(3, '0')}`;
+      Productos[idx] = { ...Productos[idx], ...data };
     }
-    showToast('✓ Vestido actualizado', 'success');
+    showToast('✓ Producto actualizado', 'success');
   } else {
     data.id = Date.now();
     if (!data.sku) {
       data.sku = `NDR-${String(data.id).padStart(3, '0')}`;
     }
-    vestidos.push(data);
-    showToast('✓ Vestido agregado al catálogo', 'success');
+    Productos.push(data);
+    showToast('✓ Producto agregado al catálogo', 'success');
   }
 
-  saveVestidos(vestidos);
+  saveProductos(Productos);
   cerrarFormulario();
   renderizarInventario();
 }
 
-function editarVestido(id) {
-  const v = getVestidoById(id);
+function editarProducto(id) {
+  const v = getProductoById(id);
   if (!v) return;
 
-  document.getElementById('formTitle').textContent = 'Editar Vestido';
+  document.getElementById('formTitle').textContent = 'Editar Producto';
   document.getElementById('editId').value = id;
   document.getElementById('vNombre').value = v.nombre;
   document.getElementById('vCategoria').value = v.categoria;
@@ -623,25 +623,25 @@ function editarVestido(id) {
     cb.checked = Array.isArray(v.tipo_cuerpo) && v.tipo_cuerpo.includes(cb.value);
   });
 
-  document.getElementById('vestidoForm').style.display = 'block';
-  document.getElementById('vestidoForm').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('ProductoForm').style.display = 'block';
+  document.getElementById('ProductoForm').scrollIntoView({ behavior: 'smooth' });
 }
 
-function eliminarVestido(id) {
-  const v = getVestidoById(id);
+function eliminarProducto(id) {
+  const v = getProductoById(id);
   if (!v) return;
   if (!confirm(`¿Eliminar "${formatDressName(v)}" del catálogo?`)) return;
 
-  let vestidos = getVestidos();
-  vestidos = vestidos.filter(v => v.id !== id);
-  saveVestidos(vestidos);
+  let Productos = getProductos();
+  Productos = Productos.filter(v => v.id !== id);
+  saveProductos(Productos);
     showToast(`✗ "${formatDressName(v)}" eliminado`, 'info');
   renderizarInventario();
 }
 
 // ─── QR GENERATOR ───
 function generarQR(id) {
-  const v = getVestidoById(id);
+  const v = getProductoById(id);
   if (!v) return;
 
   const qrSection = document.getElementById('qrSection');
@@ -652,11 +652,11 @@ function generarQR(id) {
   qrSection.scrollIntoView({ behavior: 'smooth' });
 
   const sku = v.sku || `NDR-${String(v.id).padStart(3, '0')}`;
-  const vestidoUrl = `${window.location.origin}/vestido.html?id=${v.id}&sku=${sku}`;
+  const ProductoUrl = `${window.location.origin}/Producto.html?id=${v.id}&sku=${sku}`;
 
-  // Generar QR: el QR contiene la URL del vestido + SKU
+  // Generar QR: el QR contiene la URL del Producto + SKU
   qrContainer.innerHTML = `
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(vestidoUrl)}" 
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(ProductoUrl)}" 
          alt="QR ${formatDressName(v)}"
          style="margin:0 auto;border-radius:8px;">
     <p style="margin-top:12px;padding:6px 12px;background:var(--bg-light);border-radius:6px;font-size:0.85rem;font-weight:700;color:var(--primary);font-family:monospace;">${sku}</p>
@@ -665,7 +665,7 @@ function generarQR(id) {
   qrInfo.innerHTML = `
     <strong>${formatDressName(v)}</strong><br>
     ID: #${v.id} · ${v.categoria} · ${(v.precio_renta || 0).toLocaleString('es-GT', { style: 'currency', currency: 'GTQ' })}<br>
-    <a href="${vestidoUrl}" target="_blank" style="font-size:0.8rem;">Ver ficha del vestido</a>
+    <a href="${ProductoUrl}" target="_blank" style="font-size:0.8rem;">Ver ficha del Producto</a>
   `;
 }
 
@@ -675,9 +675,9 @@ function cerrarQR() {
 
 // ─── ID Manual ───
 function entrarIdManual() {
-  const id = prompt('Ingresa el ID del vestido (número):');
+  const id = prompt('Ingresa el ID del Producto (número):');
   if (id && !isNaN(parseInt(id))) {
-    const v = getVestidoById(parseInt(id));
+    const v = getProductoById(parseInt(id));
     if (v) {
       mostrarResultadoScanner(v);
     } else {
@@ -685,7 +685,7 @@ function entrarIdManual() {
       const msg = document.getElementById('scannerErrorMessage');
       if (err && msg) {
         err.style.display = 'block';
-        msg.textContent = `✗ No se encontró un vestido con ID #${id}`;
+        msg.textContent = `✗ No se encontró un Producto con ID #${id}`;
       }
     }
   }
@@ -710,7 +710,7 @@ function renderizarUsuarios() {
       <td><strong>${u.nombre}</strong></td>
       <td>${u.correo}</td>
       <td>${u.telefono || '-'}</td>
-      <td>${(u.favoritos || []).length} vestidos</td>
+      <td>${(u.favoritos || []).length} Productos</td>
       <td><span class="badge ${u.correo === 'admin@boutique.com' ? 'badge-danger' : 'badge-success'}">${u.correo === 'admin@boutique.com' ? 'Admin' : 'Cliente'}</span></td>
       <td>
         <div class="table-actions">
@@ -741,13 +741,13 @@ function verCitasUsuario(id) {
   } else {
     citas.sort((a, b) => b.fecha.localeCompare(a.fecha));
     html += citas.map(c => {
-      const v = getVestidoById(c.id_vestido);
+      const v = getProductoById(c.id_Producto);
       const st = statusClass[c.estado_cita] || 'badge-default';
       return `<div style="padding:10px 0;border-bottom:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
         <div>
           <strong>${c.fecha}</strong> a las <strong>${c.hora}</strong>
           <br><span style="font-size:0.85rem;color:var(--text-muted);">
-            ${v ? formatDressName(v) : '#'+c.id_vestido} &middot; ${tipoLabel[c.tipo] || c.tipo}
+            ${v ? formatDressName(v) : '#'+c.id_Producto} &middot; ${tipoLabel[c.tipo] || c.tipo}
             ${c.notas ? '&middot; '+c.notas : ''}
           </span>
         </div>
@@ -811,7 +811,7 @@ function renderizarIngresos() {
 
   ingresos.sort((a, b) => b.fecha.localeCompare(a.fecha));
   body.innerHTML = ingresos.map(i => {
-    const v = getVestidoById(i.id_vestido);
+    const v = getProductoById(i.id_Producto);
     const u = getUsuarioById(i.id_usuario);
     return `
       <tr>
@@ -835,9 +835,9 @@ function mostrarFormularioIngreso() {
   document.getElementById('ingresoMonto').value = '';
   document.getElementById('ingresoNotas').value = '';
 
-  const vSelect = document.getElementById('ingresoVestido');
+  const vSelect = document.getElementById('ingresoProducto');
   vSelect.innerHTML = '<option value="">Ninguno</option>' +
-    getVestidos().map(v => `<option value="${v.id}">${formatDressName(v)}</option>`).join('');
+    getProductos().map(v => `<option value="${v.id}">${formatDressName(v)}</option>`).join('');
 
   const uSelect = document.getElementById('ingresoCliente');
   uSelect.innerHTML = '<option value="">Seleccionar...</option>' +
@@ -854,7 +854,7 @@ function guardarIngreso(e) {
     id: Date.now(),
     fecha: new Date().toISOString().split('T')[0],
     concepto: document.getElementById('ingresoConcepto').value,
-    id_vestido: parseInt(document.getElementById('ingresoVestido').value) || null,
+    id_Producto: parseInt(document.getElementById('ingresoProducto').value) || null,
     id_usuario: parseInt(document.getElementById('ingresoCliente').value) || null,
     monto: parseFloat(document.getElementById('ingresoMonto').value) || 0,
     tipo_pago: 'Efectivo',
@@ -884,9 +884,9 @@ function exportarIngresosCSV() {
     showToast('No hay ingresos para exportar', 'warning');
     return;
   }
-  let csv = 'Fecha,Concepto,ID Vestido,ID Cliente,Monto,Tipo Pago,Notas\n';
+  let csv = 'Fecha,Concepto,ID Producto,ID Cliente,Monto,Tipo Pago,Notas\n';
   ingresos.forEach(i => {
-    csv += `${i.fecha},${i.concepto},${i.id_vestido || ''},${i.id_usuario || ''},${i.monto},${i.tipo_pago || 'Efectivo'},"${(i.notas || '').replace(/"/g, '""')}"\n`;
+    csv += `${i.fecha},${i.concepto},${i.id_Producto || ''},${i.id_usuario || ''},${i.monto},${i.tipo_pago || 'Efectivo'},"${(i.notas || '').replace(/"/g, '""')}"\n`;
   });
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement('a');
@@ -964,12 +964,12 @@ function mostrarCitasDelDia(dateStr) {
   } else {
     info += citas.map(c => {
       const u = getUsuarioById(c.id_usuario);
-      const v = getVestidoById(c.id_vestido);
+      const v = getProductoById(c.id_Producto);
       const st = c.estado_cita.charAt(0).toUpperCase() + c.estado_cita.slice(1);
       return `<div style="padding:8px 0;border-bottom:1px solid var(--border-light);">
         <strong>${c.hora}</strong> - ${u ? u.nombre : 'Usuario #'+c.id_usuario}
         <br><span style="font-size:0.85rem;color:var(--text-muted);">
-          ${v ? formatDressName(v) : '#'+c.id_vestido} &middot; ${tipoLabel[c.tipo] || c.tipo} &middot; ${st}
+          ${v ? formatDressName(v) : '#'+c.id_Producto} &middot; ${tipoLabel[c.tipo] || c.tipo} &middot; ${st}
         </span>
       </div>`;
     }).join('');
@@ -989,3 +989,4 @@ function mostrarCitasDelDia(dateStr) {
   overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
   document.body.appendChild(overlay);
 }
+

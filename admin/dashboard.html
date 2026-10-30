@@ -45,9 +45,9 @@
             <div class="stat-label">Citas para hoy</div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon blue"><img src="../public/img/Iconos/Vestidos.png" alt=""></div>
+            <div class="stat-icon blue"><img src="../public/img/Iconos/Productos.png" alt=""></div>
             <div class="stat-number" id="statDisponibles">-</div>
-            <div class="stat-label">Vestidos disponibles</div>
+            <div class="stat-label">Productos disponibles</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon green"><img src="../public/img/Iconos/Lavanderia.png" alt=""></div>
@@ -85,7 +85,7 @@
               <thead>
                 <tr>
                   <th>Cliente</th>
-                  <th>Vestido</th>
+                  <th>Producto</th>
                   <th>Hora</th>
                   <th>Tipo</th>
                   <th>Estado</th>
@@ -108,7 +108,7 @@
               <thead>
                 <tr>
                   <th>Cliente</th>
-                  <th>Vestido</th>
+                  <th>Producto</th>
                   <th>Fecha</th>
                   <th>Hora</th>
                   <th>Tipo</th>
@@ -123,7 +123,7 @@
 
         <!-- Estadísticas de Rentabilidad -->
         <div class="chart-container">
-          <h3 style="margin-bottom:20px;"><img src="../public/img/Iconos/Grafica.png" class="heading-icon-img" alt="">Vestidos Más Rentados</h3>
+          <h3 style="margin-bottom:20px;"><img src="../public/img/Iconos/Grafica.png" class="heading-icon-img" alt="">Productos Más Rentados</h3>
           <div id="chartBars"></div>
         </div>
 
@@ -142,7 +142,7 @@
                 <tr>
                   <th>Fecha</th>
                   <th>Concepto</th>
-                  <th>Vestido</th>
+                  <th>Producto</th>
                   <th>Cliente</th>
                   <th>Tipo</th>
                   <th>Monto</th>
@@ -177,8 +177,8 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label>Vestido</label>
-                  <select id="ingresoVestido">
+                  <label>Producto</label>
+                  <select id="ingresoProducto">
                     <option value="">Ninguno</option>
                   </select>
                 </div>
@@ -207,10 +207,10 @@
           </div>
         </div>
 
-        <!-- Vestidos en Lavandería -->
+        <!-- Productos en Lavandería -->
         <div class="table-container">
           <div class="table-header">
-            <h3><img src="../public/img/Iconos/Vestidos.png" class="heading-icon-img" alt="">Vestidos en Lavandería / Tintorería</h3>
+            <h3><img src="../public/img/Iconos/Productos.png" class="heading-icon-img" alt="">Productos en Lavandería / Tintorería</h3>
           </div>
           <div id="lavanderiaList"></div>
         </div>
@@ -224,7 +224,7 @@
           <table>
             <thead>
               <tr>
-                <th>Vestido</th>
+                <th>Producto</th>
                 <th>Cliente</th>
                 <th>Daño Reportado</th>
                 <th>Tipo</th>
@@ -248,8 +248,8 @@
               <input type="hidden" id="danoEditId">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="danoVestido">Vestido</label>
-                  <select id="danoVestido" required></select>
+                  <label for="danoProducto">Producto</label>
+                  <select id="danoProducto" required></select>
                 </div>
                 <div class="form-group">
                   <label for="danoCliente">Cliente</label>
@@ -314,3 +314,4 @@
   </script>
 </body>
 </html>
+

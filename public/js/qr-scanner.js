@@ -66,7 +66,7 @@ async function iniciarEscanner() {
       } else if (err.name === 'NotFoundError') {
         mensaje += 'No se encontró una cámara en este dispositivo.';
       } else {
-        mensaje += 'Usa el botón "Ingresar ID Manual" para buscar un vestido.';
+        mensaje += 'Usa el botón "Ingresar ID Manual" para buscar un Producto.';
       }
       errorEl.style.display = 'block';
       errorMsg.textContent = mensaje;
@@ -113,24 +113,24 @@ function procesarQR(data) {
   if (!data || !scanning) return;
 
   try {
-    // El QR contiene la URL del vestido: vestido.html?id=X
+    // El QR contiene la URL del Producto: Producto.html?id=X
     const url = new URL(data);
     const id = parseInt(url.searchParams.get('id'));
 
     if (id) {
-      const v = getVestidoById(id);
+      const v = getProductoById(id);
       if (v) {
         detenerEscanner();
         mostrarResultadoScanner(v);
       } else {
-        showToast('✗ Vestido no encontrado', 'error');
+        showToast('✗ Producto no encontrado', 'error');
       }
     }
   } catch (e) {
     // Si el QR contiene solo el ID como texto plano
     const id = parseInt(data.trim());
     if (id) {
-      const v = getVestidoById(id);
+      const v = getProductoById(id);
       if (v) {
         detenerEscanner();
         mostrarResultadoScanner(v);
@@ -175,7 +175,7 @@ function mostrarResultadoScanner(v) {
               <option value="reparacion" ${v.estado === 'reparacion' ? 'selected' : ''}>Reparación</option>
             </select>
             <button class="btn btn-sm btn-primary" onclick="actualizarEstadoDesdeScanner(${v.id})">Actualizar Estado</button>
-            <a href="../vestido.html?id=${v.id}" target="_blank" class="btn btn-sm btn-outline">Ver Detalle</a>
+            <a href="../Producto.html?id=${v.id}" target="_blank" class="btn btn-sm btn-outline">Ver Detalle</a>
           </div>
         </div>
       </div>
@@ -188,11 +188,11 @@ function actualizarEstadoDesdeScanner(id) {
   if (!select) return;
 
   const nuevoEstado = select.value;
-  const vestidos = getVestidos();
-  const v = vestidos.find(v => v.id === id);
+  const Productos = getProductos();
+  const v = Productos.find(v => v.id === id);
   if (v) {
     v.estado = nuevoEstado;
-    saveVestidos(vestidos);
+    saveProductos(Productos);
     showToast(`✓ "${formatDressName(v)}" actualizado a: ${nuevoEstado}`, 'success');
     mostrarResultadoScanner(v); // Re-render
   }
@@ -202,3 +202,4 @@ function actualizarEstadoDesdeScanner(id) {
 window.addEventListener('beforeunload', () => {
   detenerEscanner();
 });
+

@@ -34,25 +34,25 @@
       </aside>
 
       <section class="admin-main">
-        <h1><img src="../public/img/Iconos/Inventario.png" class="heading-icon-img" alt="">Inventario de Vestidos</h1>
-        <p class="page-desc">Gestiona el catálogo, agrega nuevos vestidos y genera códigos QR</p>
+        <h1><img src="../public/img/Iconos/Inventario.png" class="heading-icon-img" alt="">Inventario de Productos</h1>
+        <p class="page-desc">Gestiona el catálogo, agrega nuevos Productos y genera códigos QR</p>
 
         <!-- Botón agregar -->
         <div style="margin-bottom:24px;">
-          <button class="btn btn-primary" onclick="abrirFormularioNuevo()">+ Agregar Nuevo Vestido</button>
+          <button class="btn btn-primary" onclick="abrirFormularioNuevo()">+ Agregar Nuevo Producto</button>
         </div>
 
         <!-- Formulario nuevo/editar -->
-        <div class="admin-form" id="vestidoForm" style="display:none;">
+        <div class="admin-form" id="ProductoForm" style="display:none;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-            <h3 id="formTitle">Agregar Vestido</h3>
+            <h3 id="formTitle">Agregar Producto</h3>
             <button class="btn btn-sm btn-secondary" onclick="cerrarFormulario()">× Cancelar</button>
           </div>
-          <form onsubmit="guardarVestido(event)">
+          <form onsubmit="guardarProducto(event)">
             <input type="hidden" id="editId" value="">
             <div class="form-row">
               <div class="form-group">
-                <label>Nombre del vestido</label>
+                <label>Nombre del Producto</label>
                 <input type="text" id="vNombre" required>
               </div>
               <div class="form-group">
@@ -163,7 +163,7 @@
               <label>Tela / Material</label>
               <input type="text" id="vTela" required>
             </div>
-            <button type="submit" class="btn btn-primary">⬇ Guardar Vestido</button>
+            <button type="submit" class="btn btn-primary">⬇ Guardar Producto</button>
           </form>
         </div>
 
@@ -228,10 +228,11 @@
       if (editId) {
         const id = parseInt(editId);
         if (!isNaN(id)) {
-          setTimeout(() => editarVestido(id), 300);
+          setTimeout(() => editarProducto(id), 300);
         }
       }
     });
   </script>
 </body>
 </html>
+

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalle del Vestido - Nicol Dress Rental</title>
+  <title>Detalle del Producto - Nicol Dress Rental</title>
   <link rel="stylesheet" href="public/css/main.css">
   <link rel="stylesheet" href="public/css/cliente.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>ღ</text></svg>">
@@ -57,7 +57,7 @@
     <div class="footer-inner">
       <div>
         <div class="footer-logo">ღ Nicol Dress Rental</div>
-        <p>Alquiler de vestidos para Fiesta, Novia, Damas y 15 Años.</p>
+        <p>Alquiler de Productos para Fiesta, Novia, Damas y 15 Años.</p>
       </div>
       <div>
         <h4>Explorar</h4>
@@ -133,7 +133,7 @@
       const id = parseInt(params.get('id'));
       const reprogramar = parseInt(params.get('reprogramar'));
       if (id) {
-        renderizarVestido(id);
+        renderizarProducto(id);
         if (reprogramar) {
           // Will be handled by carrito.js
         }
@@ -142,3 +142,4 @@
   </script>
 </body>
 </html>
+
