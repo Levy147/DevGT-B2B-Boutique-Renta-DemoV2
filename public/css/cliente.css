@@ -397,7 +397,8 @@
 
 /* Filters Sidebar */
 .filters-sidebar {
-  background: linear-gradient(180deg, #132a42 0%, #0f2337 50%, #0c1929 100%);
+  background: #ffffff;
+  border: 2px solid var(--accent);
   border-radius: var(--radius-lg);
   padding: 24px;
   box-shadow: var(--shadow-sm);
@@ -415,12 +416,12 @@
 }
 
 .filters-sidebar .filter-category-btn {
-  background: rgba(255,255,255,0.55);
-  border-color: rgba(30, 58, 95, 0.4);
+  background: #ffffff;
+  border: 1px solid var(--accent);
 }
 
 .filters-sidebar .filter-category-btn:hover {
-  background: rgba(255,255,255,0.85);
+  background: var(--accent-soft);
   border-color: var(--primary);
 }
 
