@@ -7,34 +7,34 @@
 
 /* ─── CSS Variables (Paleta Aqua Marino Dorado) ─── */
 :root {
-  --primary: #0891b2;
-  --primary-dark: #155e75;
-  --primary-hover: #22d3ee;
-  --primary-light: #0c1929;
-  --accent: #c8a44e;
-  --accent-soft: #d4b85c;
-  --accent-glow: rgba(8, 145, 178, 0.25);
+  --primary: #ec4899;
+  --primary-dark: #be185d;
+  --primary-hover: #f472b6;
+  --primary-light: #fce7f3;
+  --accent: #38bdf8;
+  --accent-soft: #7dd3fc;
+  --accent-glow: rgba(236, 72, 153, 0.25);
 
-  --bg-cream: #0c1929;
-  --bg-white: #0f1f35;
-  --bg-light: #0f2337;
-  --bg-card: #132a42;
-  --bg-gray: #0d1e33;
-  --bg-dark: #060e1a;
+  --bg-cream: #fff7fb;
+  --bg-white: #ffffff;
+  --bg-light: #fdf2f8;
+  --bg-card: #ffffff;
+  --bg-gray: #f8fafc;
+  --bg-dark: #1f2937;
 
-  --text-primary: #e0f2fe;
-  --text-secondary: #bae6fd;
-  --text-muted: #7dd3fc;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
   --text-light: #ffffff;
-  --text-link: #67e8f9;
+  --text-link: #ec4899;
 
-  --border: #1e3a5f;
-  --border-light: #172e4a;
+  --border: #fbcfe8;
+  --border-light: #fce7f3;
 
   --success: #34d399;
   --warning: #fbbf24;
   --danger: #f87171;
-  --info: #0891b2;
+  --info: #38bdf8;
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
