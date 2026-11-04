@@ -142,6 +142,39 @@ function lfClearCart() {
   lfSaveCart([]);
 }
 
+function lfInitPetals() {
+  if (document.querySelector('.petal-layer')) return;
+  const layer = document.createElement('div');
+  layer.className = 'petal-layer';
+  layer.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(layer);
+
+  const colors = [
+    'var(--accent)', 'var(--primary)', 'var(--primary-dark)',
+    'var(--primary-hover)', 'var(--accent-soft)'
+  ];
+
+  for (let index = 0; index < 20; index++) {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    const width = 40 + Math.random() * 30;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const animation = 'pd' + (1 + Math.floor(Math.random() * 10));
+    const duration = 18 + Math.random() * 18;
+    const delay = Math.random() * -36;
+    const left = 2 + Math.random() * 96;
+    Object.assign(petal.style, {
+      width: width + 'px',
+      height: (width * 1.3) + 'px',
+      left: left + '%',
+      background: `radial-gradient(ellipse at 30% 30%, ${color}, transparent 70%)`,
+      animation: `${animation} ${duration}s ease-in-out infinite`,
+      animationDelay: delay + 's'
+    });
+    layer.appendChild(petal);
+  }
+}
+
 function lfToast(message, type = 'info') {
   let container = document.getElementById('toastContainer');
   if (!container) {
@@ -470,6 +503,7 @@ function lfBindChrome() {
 }
 
 function lfInit() {
+  lfInitPetals();
   lfChrome();
   document.dispatchEvent(new CustomEvent('lf:ready'));
 }
