@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Bolsa Y2K">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffc2d1"/><stop offset=".55" stop-color="#ff9eb8"/><stop offset="1" stop-color="#ff6b9d"/>
+    </linearGradient>
+    <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff4fa3"/><stop offset="1" stop-color="#b3004d"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <g stroke="#ffffff" stroke-opacity=".4" stroke-width="2">
+    <path d="M0 75h600M0 150h600M0 225h600M0 300h600M0 375h600M0 450h600M0 525h600M0 600h600M0 675h600"/>
+    <path d="M75 0v750M150 0v750M225 0v750M300 0v750M375 0v750M450 0v750M525 0v750"/>
+  </g>
+  <text x="70" y="120" font-size="50" fill="#fff">✦</text>
+  <text x="480" y="160" font-size="36" fill="#fff">♡</text>
+  <text x="85" y="655" font-size="42" fill="#fff">✧</text>
+  <path d="M190 300c0-60 49-90 110-90s110 30 110 90" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round"/>
+  <rect x="140" y="285" width="320" height="260" rx="34" fill="url(#cloth)" stroke="#fff" stroke-width="6"/>
+  <path d="M140 355h320" stroke="#ffd6e4" stroke-width="5" opacity=".7"/>
+  <path d="M300 420c14-26 46-26 58 0 11 25-20 50-58 72-38-22-69-47-58-72 12-26 44-26 58 0z" fill="#ffe4ec" opacity=".95"/>
+  <circle cx="300" cy="470" r="7" fill="#ff3d8b"/>
+  <path d="M250 355v-40M350 355v-40" stroke="#ffe4ec" stroke-width="6" stroke-linecap="round"/>
+</svg>

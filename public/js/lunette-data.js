@@ -1,0 +1,207 @@
+/* ============================================================
+   LUNETTE — Datos de la tienda
+   Moda y accesorios Y2K / Coquette · Guatemala
+   ============================================================ */
+
+const LUNETTE_STORE = {
+  name: 'Lunette',
+  tagline: 'cute styles · y2k vibes',
+  email: 'info@lunette.com',
+  instagram: '@lunette',
+  instagramUrl: 'https://instagram.com/lunette',
+  tiktok: '@lunette',
+  whatsapp: '',
+  shipping: 25,
+  freeShippingFrom: 500,
+  city: 'Guatemala',
+  currency: 'GTQ'
+};
+
+const LUNETTE_IMG = {
+  tops: 'public/img/lunette/top.svg',
+  faldas: 'public/img/lunette/falda.svg',
+  hoodies: 'public/img/lunette/hoodie.svg',
+  accesorios: 'public/img/lunette/accesorio.svg',
+  bolsas: 'public/img/lunette/bolsa.svg',
+  outfits: 'public/img/lunette/outfit.svg'
+};
+
+const LUNETTE_CATEGORIES = [
+  { slug: 'tops', name: 'Tops', emoji: '♡', blurb: 'Baby tees, encaje y mallas', image: LUNETTE_IMG.tops },
+  { slug: 'faldas', name: 'Faldas', emoji: '✦', blurb: 'Mini, plisadas y denim', image: LUNETTE_IMG.faldas },
+  { slug: 'hoodies', name: 'Hoodies', emoji: '☁', blurb: 'Abrigos cute y oversize', image: LUNETTE_IMG.hoodies },
+  { slug: 'accesorios', name: 'Accesorios', emoji: '✧', blurb: 'Lentes, pinzas y chokers', image: LUNETTE_IMG.accesorios },
+  { slug: 'bolsas', name: 'Bolsas', emoji: '♢', blurb: 'Mini bags y metálicas', image: LUNETTE_IMG.bolsas },
+  { slug: 'outfits', name: 'Outfits', emoji: '✿', blurb: 'Sets listos para brillar', image: LUNETTE_IMG.outfits }
+];
+
+const LUNETTE_PRODUCTS = [
+  {
+    id: 1, sku: 'LNT-001', name: 'Angel Baby Top', category: 'tops', price: 145, oldPrice: 185,
+    badge: 'sale', rating: 4.9, reviews: 38, image: LUNETTE_IMG.tops, tint: 0,
+    sizes: ['XS', 'S', 'M', 'L'], colors: ['Rosa', 'Blanco'],
+    description: 'Baby tee en algodón suavecito con lazo bordado y brillo sutil. El básico coquette que combina con todo.',
+    details: ['Algodón premium', 'Detalle de lazo bordado', 'Fit entallado', 'Lavar a mano']
+  },
+  {
+    id: 2, sku: 'LNT-002', name: 'Cherry Crush Top', category: 'tops', price: 135,
+    badge: 'new', rating: 4.8, reviews: 21, image: LUNETTE_IMG.tops, tint: 320,
+    sizes: ['XS', 'S', 'M', 'L'], colors: ['Cereza', 'Rosa'],
+    description: 'Top de manga corta con estampado de cerezas y ribete en contraste. Dulce, fresco y muy Y2K.',
+    details: ['Tela elástica', 'Estampado cherry', 'Escote redondo', 'Lavar a mano']
+  },
+  {
+    id: 3, sku: 'LNT-003', name: 'Starlight Mesh Top', category: 'tops', price: 165,
+    badge: 'best', rating: 5.0, reviews: 64, image: LUNETTE_IMG.tops, tint: 300,
+    sizes: ['XS', 'S', 'M'], colors: ['Rosa', 'Plateado'],
+    description: 'Top de malla con estrellas y brillos. Perfecto para una noche de fotos con flash.',
+    details: ['Malla stretch', 'Aplicaciones de brillo', 'Ideal para capas', 'Disponible en 2 tonos']
+  },
+  {
+    id: 4, sku: 'LNT-004', name: 'Coquette Lace Cami', category: 'tops', price: 155,
+    badge: '', rating: 4.7, reviews: 17, image: LUNETTE_IMG.tops, tint: 15,
+    sizes: ['XS', 'S', 'M', 'L'], colors: ['Rosa', 'Marfil'],
+    description: 'Camisola de encaje con tirantes ajustables. Romántica, ligera y con ese aire de muñeca de porcelana.',
+    details: ['Encaje suave', 'Tirantes ajustables', 'Forro interior', 'Fit relajado']
+  },
+  {
+    id: 5, sku: 'LNT-005', name: 'Bunny Pleated Mini', category: 'faldas', price: 185,
+    badge: 'new', rating: 4.9, reviews: 33, image: LUNETTE_IMG.faldas, tint: 0,
+    sizes: ['XS', 'S', 'M', 'L'], colors: ['Rosa', 'Negro'],
+    description: 'Falda plisada mini con cintura alta y forro. La pieza estrella de cualquier outfit coquette.',
+    details: ['Plisado permanente', 'Cintura elástica', 'Forro interior', 'Largo mini']
+  },
+  {
+    id: 6, sku: 'LNT-006', name: 'Dollhouse Denim Mini', category: 'faldas', price: 210, oldPrice: 250,
+    badge: 'sale', rating: 4.8, reviews: 26, image: LUNETTE_IMG.faldas, tint: 330,
+    sizes: ['XS', 'S', 'M', 'L'], colors: ['Denim claro', 'Denim rosa'],
+    description: 'Mini falda de denim con bolsillos y costuras en contraste. Un clásico Y2K reinventado en rosa.',
+    details: ['Denim rígido', 'Cintura alta', '5 bolsillos', 'Cierre con botón']
+  },
+  {
+    id: 7, sku: 'LNT-007', name: 'Sugar Rush Skirt', category: 'faldas', price: 175,
+    badge: 'low', rating: 4.6, reviews: 12, image: LUNETTE_IMG.faldas, tint: 40,
+    sizes: ['S', 'M'], colors: ['Rosa', 'Lavanda'],
+    description: 'Falda con volantes y lazo lateral. Suave como el algodón de azúcar, lista para brillar.',
+    details: ['Volantes en capas', 'Lazo removible', 'Forro interior', 'Últimas piezas']
+  },
+  {
+    id: 8, sku: 'LNT-008', name: 'Cloud Bunny Hoodie', category: 'hoodies', price: 265,
+    badge: 'best', rating: 5.0, reviews: 51, image: LUNETTE_IMG.hoodies, tint: 0,
+    sizes: ['S', 'M', 'L', 'XL'], colors: ['Rosa pastel', 'Blanco'],
+    description: 'Hoodie oversize con orejitas de conejo y bolsillo canguro. Abrazo de peluche garantizado.',
+    details: ['Felpa afelpada', 'Orejitas 3D', 'Fit oversize', 'Unisex']
+  },
+  {
+    id: 9, sku: 'LNT-009', name: 'Y2K Cyber Hoodie', category: 'hoodies', price: 285,
+    badge: 'new', rating: 4.8, reviews: 19, image: LUNETTE_IMG.hoodies, tint: 300,
+    sizes: ['S', 'M', 'L', 'XL'], colors: ['Rosa', 'Negro'],
+    description: 'Hoodie con gráficos pixel-art y detalles reflectantes. Nostalgia del internet de los 2000.',
+    details: ['Estampado reflectante', 'Capucha forrada', 'Puños elásticos', 'Edición limitada']
+  },
+  {
+    id: 10, sku: 'LNT-010', name: 'Soft Girl Zip Hoodie', category: 'hoodies', price: 245, oldPrice: 295,
+    badge: 'sale', rating: 4.7, reviews: 22, image: LUNETTE_IMG.hoodies, tint: 15,
+    sizes: ['S', 'M', 'L'], colors: ['Rosa', 'Lila'],
+    description: 'Zip-up con cierre completo, capucha gigante y bolsillos. Cómodo para todos los planes cute.',
+    details: ['Cierre metálico', 'Capucha doble', 'Bolsillos laterales', 'Tela suave']
+  },
+  {
+    id: 11, sku: 'LNT-011', name: 'Heart Sunglasses', category: 'accesorios', price: 75,
+    badge: 'best', rating: 4.9, reviews: 88, image: LUNETTE_IMG.accesorios, tint: 0,
+    sizes: ['Única'], colors: ['Rosa', 'Rojo'],
+    description: 'Lentes de corazón con acabado glossy. El accesorio viral para tus selfies.',
+    details: ['Protección UV400', 'Montura flexible', 'Incluye estuche', 'Talla única']
+  },
+  {
+    id: 12, sku: 'LNT-012', name: 'Crystal Bow Clips', category: 'accesorios', price: 55,
+    badge: 'new', rating: 4.8, reviews: 41, image: LUNETTE_IMG.accesorios, tint: 20,
+    sizes: ['Única'], colors: ['Rosa', 'Plateado'],
+    description: 'Set de 2 pinzas con lazos de cristal. Pequeño detalle, máximo efecto coquette.',
+    details: ['Set de 2 piezas', 'Cristales facetados', 'Broche seguro', 'Ideal para regalo']
+  },
+  {
+    id: 13, sku: 'LNT-013', name: 'Pearl Choker', category: 'accesorios', price: 90,
+    badge: '', rating: 4.7, reviews: 30, image: LUNETTE_IMG.accesorios, tint: 340,
+    sizes: ['Única'], colors: ['Perla', 'Rosa'],
+    description: 'Gargantilla de perlas con corazón de cristal. Elegante con un toque de drama.',
+    details: ['Perlas sintéticas', 'Extensión ajustable', 'Corazón de cristal', 'Hipoalergénico']
+  },
+  {
+    id: 14, sku: 'LNT-014', name: 'Star Charm Chain', category: 'accesorios', price: 65,
+    badge: 'low', rating: 4.6, reviews: 14, image: LUNETTE_IMG.accesorios, tint: 310,
+    sizes: ['Única'], colors: ['Plateado', 'Dorado'],
+    description: 'Cadena para bolso o cinturón con estrellas metálicas. Personaliza tu look en segundos.',
+    details: ['Metal baño de plata', 'Largo ajustable', 'Dijes de estrella', 'Pocas unidades']
+  },
+  {
+    id: 15, sku: 'LNT-015', name: 'Mini Bag Coquette', category: 'bolsas', price: 195,
+    badge: 'best', rating: 4.9, reviews: 47, image: LUNETTE_IMG.bolsas, tint: 0,
+    sizes: ['Única'], colors: ['Rosa', 'Magenta'],
+    description: 'Bolso mini con asa de lazo y cierre magnético. Solo cabe lo esencial, pero qué esencial.',
+    details: ['Asa de lazo', 'Cierre magnético', 'Forro interior', 'Talla única']
+  },
+  {
+    id: 16, sku: 'LNT-016', name: 'Metallic Y2K Shoulder Bag', category: 'bolsas', price: 225,
+    badge: 'new', rating: 4.8, reviews: 23, image: LUNETTE_IMG.bolsas, tint: 15,
+    sizes: ['Única'], colors: ['Rosa metal', 'Plateado'],
+    description: 'Bolso de hombro metálico que refleja todos los flashes. Icónico noventas, energía 2000.',
+    details: ['Acabado metálico', 'Cadena removible', 'Bolsillo interior', 'Cierre de cremallera']
+  },
+  {
+    id: 17, sku: 'LNT-017', name: 'Bunny Backpack', category: 'bolsas', price: 240, oldPrice: 280,
+    badge: 'sale', rating: 4.7, reviews: 18, image: LUNETTE_IMG.bolsas, tint: 330,
+    sizes: ['Única'], colors: ['Rosa', 'Blanco'],
+    description: 'Mochila con orejitas, bolsillo frontal y espalda acolchada. Cute para el día a día.',
+    details: ['Orejitas 3D', 'Espalda acolchada', 'Bolsillo para laptop 13"', 'Correas ajustables']
+  },
+  {
+    id: 18, sku: 'LNT-018', name: 'Dreamy Two-Piece Set', category: 'outfits', price: 350,
+    badge: 'new', rating: 5.0, reviews: 29, image: LUNETTE_IMG.outfits, tint: 0,
+    sizes: ['XS', 'S', 'M', 'L'], colors: ['Rosa', 'Lavanda'],
+    description: 'Set de top y falda a juego con detalles de lazo. Outfit completo listo para tu próxima cita.',
+    details: ['Incluye top y falda', 'Tejido suave', 'Detalles de lazo', 'Sets coordinados']
+  },
+  {
+    id: 19, sku: 'LNT-019', name: 'Coquette Picnic Set', category: 'outfits', price: 320,
+    badge: 'best', rating: 4.9, reviews: 35, image: LUNETTE_IMG.outfits, tint: 20,
+    sizes: ['XS', 'S', 'M', 'L'], colors: ['Rosa', 'Marfil'],
+    description: 'Conjunto de blusa con volantes y falda midi. Perfecto para un picnic aesthetic de domingo.',
+    details: ['Blusa + falda midi', 'Volantes románticos', 'Cintura elástica', 'Tela ligera']
+  },
+  {
+    id: 20, sku: 'LNT-020', name: 'Strawberry Lounge Set', category: 'outfits', price: 300, oldPrice: 360,
+    badge: 'sale', rating: 4.8, reviews: 24, image: LUNETTE_IMG.outfits, tint: 340,
+    sizes: ['S', 'M', 'L'], colors: ['Rosa', 'Cereza'],
+    description: 'Set casual de top corto y short con estampado de fresas. Comodidad con actitud.',
+    details: ['Top + short', 'Estampado frutal', 'Cintura ajustable', 'Algodón suave']
+  }
+];
+
+const LUNETTE_COLORS = [
+  'Rosa', 'Blanco', 'Negro', 'Marfil', 'Lavanda', 'Plateado',
+  'Dorado', 'Cereza', 'Denim claro', 'Denim rosa', 'Lila', 'Magenta',
+  'Rosa pastel', 'Rosa metal', 'Perla', 'Rojo'
+];
+
+function lunetteProductById(id) {
+  return LUNETTE_PRODUCTS.find(p => p.id === Number(id)) || null;
+}
+
+function lunetteCategoryBySlug(slug) {
+  return LUNETTE_CATEGORIES.find(c => c.slug === slug) || null;
+}
+
+function lunetteProductUrl(product) {
+  return 'Producto.html?id=' + product.id;
+}
+
+function lunetteBadge(product) {
+  const map = {
+    new: { label: 'Nuevo', className: 'badge-info' },
+    sale: { label: 'Oferta', className: 'badge-danger' },
+    best: { label: 'Best seller', className: 'badge-success' },
+    low: { label: 'Últimas piezas', className: 'badge-warning' }
+  };
+  return map[product.badge] || null;
+}

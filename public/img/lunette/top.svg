@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Top Y2K">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe4ec"/><stop offset=".55" stop-color="#ffc2d1"/><stop offset="1" stop-color="#ff9eb8"/>
+    </linearGradient>
+    <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff6b9d"/><stop offset="1" stop-color="#e6006b"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <g stroke="#ffffff" stroke-opacity=".45" stroke-width="2">
+    <path d="M0 75h600M0 150h600M0 225h600M0 300h600M0 375h600M0 450h600M0 525h600M0 600h600M0 675h600"/>
+    <path d="M75 0v750M150 0v750M225 0v750M300 0v750M375 0v750M450 0v750M525 0v750"/>
+  </g>
+  <text x="60" y="110" font-size="54" fill="#fff">✦</text>
+  <text x="500" y="150" font-size="38" fill="#fff">✧</text>
+  <text x="90" y="650" font-size="44" fill="#fff">♡</text>
+  <text x="480" y="690" font-size="34" fill="#fff">✦</text>
+  <path d="M205 235l-55 40 38 62 34-20v250c0 16 12 28 28 28h70c16 0 28-12 28-28V317l34 20 38-62-55-40-35 18c-26-12-54-12-80 0z" fill="url(#cloth)" stroke="#fff" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M255 262c18 22 52 22 70 0" fill="none" stroke="#ffd6e4" stroke-width="7" stroke-linecap="round"/>
+  <path d="M300 420c10-18 32-18 40 0 8 18-14 36-40 52-26-16-48-34-40-52 8-18 30-18 40 0z" fill="#ffe4ec" opacity=".9"/>
+  <g transform="translate(300 640)">
+    <path d="M-28 0c0-20 12-34 28-34S28-20 28 0c0 8-6 14-14 14h-28C-22 14-28 8-28 0z" fill="#ff3d8b" stroke="#fff" stroke-width="4"/>
+    <circle cx="0" cy="-6" r="7" fill="#fff"/>
+  </g>
+</svg>

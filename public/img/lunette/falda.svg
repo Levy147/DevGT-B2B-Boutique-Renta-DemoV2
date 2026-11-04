@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Falda Y2K">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe4ec"/><stop offset=".55" stop-color="#ffc2d1"/><stop offset="1" stop-color="#ff9eb8"/>
+    </linearGradient>
+    <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff8fb4"/><stop offset="1" stop-color="#c9005c"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <g stroke="#ffffff" stroke-opacity=".45" stroke-width="2">
+    <path d="M0 75h600M0 150h600M0 225h600M0 300h600M0 375h600M0 450h600M0 525h600M0 600h600M0 675h600"/>
+    <path d="M75 0v750M150 0v750M225 0v750M300 0v750M375 0v750M450 0v750M525 0v750"/>
+  </g>
+  <text x="70" y="120" font-size="50" fill="#fff">✦</text>
+  <text x="480" y="160" font-size="36" fill="#fff">♡</text>
+  <text x="80" y="640" font-size="40" fill="#fff">✧</text>
+  <text x="490" y="680" font-size="34" fill="#fff">✦</text>
+  <path d="M220 200h160l70 330c4 18-10 34-28 34H178c-18 0-32-16-28-34z" fill="url(#cloth)" stroke="#fff" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M220 200h160" stroke="#ffe4ec" stroke-width="14" stroke-linecap="round"/>
+  <path d="M240 260l-28 270M300 260v270M360 260l28 270" stroke="#ffd6e4" stroke-width="5" stroke-dasharray="12 14" opacity=".8"/>
+  <path d="M255 200c8-34 28-54 45-54s37 20 45 54" fill="none" stroke="#ff3d8b" stroke-width="6" stroke-linecap="round"/>
+  <path d="M245 205c-26-8-40-30-32-48 20-8 42 8 50 34M355 205c26-8 40-30 32-48-20-8-42 8-50 34" fill="#ff3d8b" stroke="#fff" stroke-width="4"/>
+  <circle cx="300" cy="205" r="10" fill="#fff"/>
+</svg>

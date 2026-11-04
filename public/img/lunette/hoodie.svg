@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Hoodie Y2K">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffc2d1"/><stop offset=".55" stop-color="#ff9eb8"/><stop offset="1" stop-color="#ff6b9d"/>
+    </linearGradient>
+    <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd6e4"/><stop offset="1" stop-color="#ff8fb4"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <g stroke="#ffffff" stroke-opacity=".4" stroke-width="2">
+    <path d="M0 75h600M0 150h600M0 225h600M0 300h600M0 375h600M0 450h600M0 525h600M0 600h600M0 675h600"/>
+    <path d="M75 0v750M150 0v750M225 0v750M300 0v750M375 0v750M450 0v750M525 0v750"/>
+  </g>
+  <text x="65" y="115" font-size="50" fill="#fff">✦</text>
+  <text x="485" y="150" font-size="36" fill="#fff">✧</text>
+  <text x="90" y="655" font-size="42" fill="#fff">♡</text>
+  <path d="M225 250c0-30 33-55 75-55s75 25 75 55l-20 22H245z" fill="#ff3d8b" stroke="#fff" stroke-width="6"/>
+  <path d="M175 285l-45 60 46 46 36-30v200c0 16 12 28 28 28h120c16 0 28-12 28-28V361l36 30 46-46-45-60-48 26c-42-24-100-24-142 0z" fill="url(#cloth)" stroke="#fff" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M245 272c22 24 88 24 110 0" fill="none" stroke="#ff3d8b" stroke-width="7" stroke-linecap="round"/>
+  <path d="M262 320l-16 44M338 320l16 44" stroke="#ff3d8b" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="246" cy="368" r="8" fill="#ff3d8b"/><circle cx="354" cy="368" r="8" fill="#ff3d8b"/>
+  <path d="M300 430c12-22 38-22 47 0 9 21-17 42-47 60-30-18-56-39-47-60 9-22 35-22 47 0z" fill="#ff3d8b" opacity=".85"/>
+</svg>

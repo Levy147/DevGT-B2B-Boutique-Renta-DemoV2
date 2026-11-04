@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Outfit Y2K">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe4ec"/><stop offset=".55" stop-color="#ffc2d1"/><stop offset="1" stop-color="#ff9eb8"/>
+    </linearGradient>
+    <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff6b9d"/><stop offset="1" stop-color="#c9005c"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <g stroke="#ffffff" stroke-opacity=".45" stroke-width="2">
+    <path d="M0 75h600M0 150h600M0 225h600M0 300h600M0 375h600M0 450h600M0 525h600M0 600h600M0 675h600"/>
+    <path d="M75 0v750M150 0v750M225 0v750M300 0v750M375 0v750M450 0v750M525 0v750"/>
+  </g>
+  <text x="65" y="115" font-size="50" fill="#fff">✦</text>
+  <text x="485" y="155" font-size="36" fill="#fff">♡</text>
+  <text x="90" y="660" font-size="42" fill="#fff">✧</text>
+  <path d="M225 120l-45 34 30 50 28-16v120h124V188l28 16 30-50-45-34-30 16c-20-10-50-10-70 0z" fill="url(#cloth)" stroke="#fff" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M262 142c14 16 62 16 76 0" fill="none" stroke="#ffd6e4" stroke-width="6" stroke-linecap="round"/>
+  <path d="M235 372h130l54 232c3 14-8 26-22 26H203c-14 0-25-12-22-26z" fill="#ff8fb4" stroke="#fff" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M235 372h130" stroke="#ffe4ec" stroke-width="12" stroke-linecap="round"/>
+  <path d="M252 400l-18 214M300 400v214M348 400l18 214" stroke="#fff" stroke-width="4" stroke-dasharray="10 12" opacity=".7"/>
+  <path d="M262 372c8-26 22-40 38-40s30 14 38 40" fill="none" stroke="#ff3d8b" stroke-width="5" stroke-linecap="round"/>
+  <path d="M245 374c-18-6-28-20-22-34 14-6 30 6 36 24M355 374c18-6 28-20 22-34-14-6-30 6-36 24" fill="#ff3d8b" stroke="#fff" stroke-width="4"/>
+  <circle cx="300" cy="374" r="8" fill="#fff"/>
+</svg>
