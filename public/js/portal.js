@@ -285,7 +285,11 @@
     els.modalTitle.textContent = product ? 'Editar producto' : 'Nuevo producto';
     els.productId.value = product ? product.id : '';
     els.fieldName.value = product ? product.name : '';
-    els.fieldSku.value = product ? (product.sku || '') : '';
+    els.fieldSku.value = product ? (product.sku || '') : (() => {
+      const nums = state.products.map(p => parseInt(String(p.sku || '').replace(/\D/g, ''), 10)).filter(n => !isNaN(n));
+      const next = (nums.length ? Math.max(...nums) : 0) + 1;
+      return 'LNT-' + String(next).padStart(3, '0');
+    })();
     els.fieldPrice.value = product ? product.price : '';
     els.fieldOldPrice.value = product && product.old_price != null ? product.old_price : '';
     els.fieldBadge.value = product ? (product.badge || '') : '';
