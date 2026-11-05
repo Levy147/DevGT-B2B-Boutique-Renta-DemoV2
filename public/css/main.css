@@ -793,8 +793,10 @@ img {
     background: var(--bg-white);
     flex-direction: column;
     padding: 16px;
+    border: none;
     border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow-lg);
+    border-radius: 0;
   }
 
   .navbar-links.open {
