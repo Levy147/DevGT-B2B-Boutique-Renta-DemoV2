@@ -1064,7 +1064,7 @@
 
 /* Precios en color claro brillante para destacar en el fondo */
 .seccion-mas-rentados .product-card-body .price {
-  color: #ffffff !important; 
+  color: #111111 !important;
   font-size: 1.15rem;
   font-weight: 600;
 }
