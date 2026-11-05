@@ -273,9 +273,7 @@ function lfNavHTML() {
           <a class="btn-icon ${page === 'favorites' ? 'lf-icon-active' : ''}" href="favoritos.html" title="Favoritos" aria-label="Favoritos">
             ♡<span class="lf-count" data-fav-count hidden>0</span>
           </a>
-          <a class="btn-icon ${page === 'account' ? 'lf-icon-active' : ''}" href="index.html" title="Iniciar sesión" aria-label="Iniciar sesión">
-            👤
-          </a>
+          <a class="btn-icon ${page === 'account' ? 'lf-icon-active' : ''}" href="index.html" title="Iniciar sesión" aria-label="Iniciar sesión" style="background:#f7a8c4;color:#fff;padding:6px 12px;border-radius:999px;font-size:.85rem;text-decoration:none;">Inicio de sesión</a>
           <button class="btn-icon ${page === 'cart' ? 'lf-icon-active' : ''}" type="button" data-open-cart title="Carrito" aria-label="Abrir carrito">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
               <path d="M5.5 8.5h13l-1 11h-11l-1-11Z"/><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5"/>
