@@ -507,9 +507,16 @@ function lfBindChrome() {
   });
 }
 
-function lfInit() {
+async function lfInit() {
   lfInitPetals();
   lfChrome();
+  try {
+    if (typeof lfLoadRemoteCatalog === 'function') {
+      await lfLoadRemoteCatalog();
+    }
+  } catch (error) {
+    console.warn('No se pudo cargar el catálogo remoto; se usan los datos locales.', error);
+  }
   document.dispatchEvent(new CustomEvent('lf:ready'));
 }
 

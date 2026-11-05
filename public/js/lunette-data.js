@@ -3,6 +3,14 @@
    Moda y accesorios Y2K / Coquette · Guatemala
    ============================================================ */
 
+/* Configuración de Supabase.
+   Pega aquí la URL y la llave pública (publishable o anon) del proyecto.
+   NUNCA uses la llave service_role en el navegador. */
+const LUNETTE_SUPABASE = {
+  url: 'https://czqekviizatgzhwxmqls.supabase.co',
+  anonKey: 'sb_publishable_hkezZJ2ZkJfXMKS9B6ovAw_a7jTvqOk'
+};
+
 const LUNETTE_STORE = {
   name: 'Lunette',
   tagline: 'cute styles · y2k vibes',
@@ -28,7 +36,7 @@ const LUNETTE_IMG = {
   outfits: 'public/img/lunette/outfit.svg'
 };
 
-const LUNETTE_CATEGORIES = [
+let LUNETTE_CATEGORIES = [
   { slug: 'tops', name: 'Tops', emoji: '♡', blurb: 'Baby tees, encaje y mallas', image: LUNETTE_IMG.tops },
   { slug: 'faldas', name: 'Faldas', emoji: '✦', blurb: 'Mini, plisadas y denim', image: LUNETTE_IMG.faldas },
   { slug: 'hoodies', name: 'Hoodies', emoji: '☁', blurb: 'Abrigos cute y oversize', image: LUNETTE_IMG.hoodies },
@@ -37,7 +45,7 @@ const LUNETTE_CATEGORIES = [
   { slug: 'outfits', name: 'Outfits', emoji: '✿', blurb: 'Sets listos para brillar', image: LUNETTE_IMG.outfits }
 ];
 
-const LUNETTE_PRODUCTS = [
+let LUNETTE_PRODUCTS = [
   {
     id: 1, sku: 'LNT-001', name: 'Angel Baby Top', category: 'tops', price: 145, oldPrice: 185,
     badge: 'sale', rating: 4.9, reviews: 38, image: LUNETTE_IMG.tops, tint: 0,
@@ -180,7 +188,7 @@ const LUNETTE_PRODUCTS = [
   }
 ];
 
-const LUNETTE_COLORS = [
+let LUNETTE_COLORS = [
   'Rosa', 'Blanco', 'Negro', 'Marfil', 'Lavanda', 'Plateado',
   'Dorado', 'Cereza', 'Denim claro', 'Denim rosa', 'Lila', 'Magenta',
   'Rosa pastel', 'Rosa metal', 'Perla', 'Rojo'
@@ -206,4 +214,78 @@ function lunetteBadge(product) {
     low: { label: 'Últimas piezas', className: 'badge-warning' }
   };
   return map[product.badge] || null;
+}
+
+/* ─── Catálogo remoto (Supabase) ─── */
+
+let lunetteSupabaseClient = null;
+
+async function lfGetSupabaseClient() {
+  if (lunetteSupabaseClient) return lunetteSupabaseClient;
+  if (!LUNETTE_SUPABASE.url || !LUNETTE_SUPABASE.anonKey) return null;
+  if (!window.supabase) {
+    await new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+  lunetteSupabaseClient = window.supabase.createClient(
+    LUNETTE_SUPABASE.url,
+    LUNETTE_SUPABASE.anonKey
+  );
+  return lunetteSupabaseClient;
+}
+
+async function lfLoadRemoteCatalog() {
+  const client = await lfGetSupabaseClient();
+  if (!client) return false;
+
+  const [categoriesResult, productsResult] = await Promise.all([
+    client.from('categories').select('*').order('sort_order', { ascending: true }),
+    client.from('products').select('*, categories(slug)').eq('active', true).order('id', { ascending: true })
+  ]);
+
+  if (categoriesResult.error) throw categoriesResult.error;
+  if (productsResult.error) throw productsResult.error;
+
+  const categories = categoriesResult.data || [];
+  const products = productsResult.data || [];
+
+  if (categories.length) {
+    LUNETTE_CATEGORIES = categories.map(category => ({
+      slug: category.slug,
+      name: category.name,
+      emoji: category.emoji || '♡',
+      blurb: category.blurb || '',
+      image: category.image || LUNETTE_IMG[category.slug] || ''
+    }));
+  }
+
+  if (products.length) {
+    LUNETTE_PRODUCTS = products.map(product => ({
+      id: product.id,
+      sku: product.sku || ('LNT-' + product.id),
+      name: product.name,
+      category: product.categories ? product.categories.slug : '',
+      price: Number(product.price),
+      oldPrice: product.old_price != null ? Number(product.old_price) : undefined,
+      badge: product.badge || '',
+      rating: Number(product.rating || 0),
+      reviews: Number(product.reviews || 0),
+      image: product.image || LUNETTE_IMG[product.categories ? product.categories.slug : ''] || '',
+      tint: Number(product.tint || 0),
+      sizes: Array.isArray(product.sizes) && product.sizes.length ? product.sizes : ['Única'],
+      colors: Array.isArray(product.colors) && product.colors.length ? product.colors : ['Único'],
+      description: product.description || '',
+      details: Array.isArray(product.details) ? product.details : []
+    }));
+
+    const remoteColors = LUNETTE_PRODUCTS.flatMap(product => product.colors);
+    LUNETTE_COLORS = [...new Set(remoteColors)];
+  }
+
+  return true;
 }

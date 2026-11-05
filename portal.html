@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Lunette · Portal</title>
+  <link rel="stylesheet" href="public/css/portal.css">
+</head>
+<body>
+  <!-- Login -->
+  <section id="loginView" class="portal-login">
+    <div class="portal-login-card">
+      <div class="portal-logo">ღ</div>
+      <h1>Lunette <span>Portal</span></h1>
+      <p class="portal-muted">Administra el catálogo de la tienda.</p>
+
+      <form id="loginForm" class="portal-form-stack">
+        <label>Correo
+          <input id="loginEmail" type="email" autocomplete="email" required>
+        </label>
+        <label>Contraseña
+          <input id="loginPassword" type="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit" class="portal-btn primary">Entrar</button>
+      </form>
+
+      <form id="signupForm" class="portal-form-stack" hidden>
+        <label>Correo
+          <input id="signupEmail" type="email" autocomplete="email" required>
+        </label>
+        <label>Contraseña
+          <input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required>
+        </label>
+        <button type="submit" class="portal-btn primary">Crear cuenta</button>
+      </form>
+
+      <button id="toggleSignup" type="button" class="portal-link">¿No tienes cuenta? Crear una</button>
+      <p id="loginMessage" class="portal-message" hidden></p>
+      <p class="portal-hint">
+        Crea tu usuario y luego hazlo admin ejecutando el SQL del final de
+        <code>supabase/schema.sql</code>.
+      </p>
+    </div>
+  </section>
+
+  <!-- App -->
+  <section id="appView" hidden>
+    <header class="portal-topbar">
+      <div class="portal-brand">ღ Lunette <span>Portal</span></div>
+      <div class="portal-topbar-actions">
+        <span id="userEmail" class="portal-muted"></span>
+        <button id="logoutBtn" type="button" class="portal-btn ghost">Salir</button>
+      </div>
+    </header>
+
+    <main class="portal-content">
+      <p id="appMessage" class="portal-message" hidden></p>
+
+      <div id="stats" class="portal-stats"></div>
+
+      <section class="portal-panel">
+        <div class="portal-panel-head">
+          <h2>Productos</h2>
+          <div class="portal-actions">
+            <input id="searchInput" type="search" placeholder="Buscar nombre, SKU o categoría">
+            <select id="categoryFilter"></select>
+            <button id="newProductBtn" type="button" class="portal-btn primary">+ Nuevo producto</button>
+          </div>
+        </div>
+
+        <div class="portal-table-wrap">
+          <table class="portal-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Producto</th>
+                <th>SKU</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Visible</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="productsBody"></tbody>
+          </table>
+        </div>
+        <p id="emptyState" class="portal-empty" hidden>
+          No hay productos todavía.
+          <button id="importDemoBtn" type="button" class="portal-btn ghost">Importar catálogo demo</button>
+        </p>
+      </section>
+
+      <section class="portal-panel">
+        <div class="portal-panel-head">
+          <h2>Categorías</h2>
+          <button id="newCategoryBtn" type="button" class="portal-btn ghost">+ Nueva categoría</button>
+        </div>
+        <div id="categoriesList" class="portal-chips"></div>
+
+        <form id="categoryForm" class="portal-inline-form" hidden>
+          <input id="catSlug" placeholder="slug (se genera del nombre)">
+          <input id="catName" placeholder="Nombre" required>
+          <input id="catEmoji" placeholder="Emoji" maxlength="4">
+          <input id="catBlurb" placeholder="Descripción corta">
+          <input id="catImage" placeholder="Imagen (URL)">
+          <button type="submit" class="portal-btn primary">Agregar</button>
+        </form>
+      </section>
+    </main>
+  </section>
+
+  <!-- Modal producto -->
+  <div id="productModal" class="portal-modal" hidden>
+    <div class="portal-modal-card">
+      <div class="portal-modal-head">
+        <h2 id="modalTitle">Nuevo producto</h2>
+        <button id="closeModal" type="button" class="portal-icon-btn" aria-label="Cerrar">×</button>
+      </div>
+
+      <form id="productForm" class="portal-form">
+        <input type="hidden" id="productId">
+
+        <div class="portal-grid">
+          <label>Nombre *
+            <input id="fieldName" required>
+          </label>
+          <label>SKU
+            <input id="fieldSku" placeholder="LNT-021">
+          </label>
+          <label>Categoría
+            <select id="fieldCategory"></select>
+          </label>
+          <label>Precio (GTQ) *
+            <input id="fieldPrice" type="number" min="0" step="0.01" required>
+          </label>
+          <label>Precio anterior
+            <input id="fieldOldPrice" type="number" min="0" step="0.01">
+          </label>
+          <label>Etiqueta
+            <select id="fieldBadge">
+              <option value="">Sin etiqueta</option>
+              <option value="new">Nuevo</option>
+              <option value="sale">Oferta</option>
+              <option value="best">Best seller</option>
+              <option value="low">Últimas piezas</option>
+            </select>
+          </label>
+          <label>Rating (0-5)
+            <input id="fieldRating" type="number" min="0" max="5" step="0.1" value="5">
+          </label>
+          <label>Reseñas
+            <input id="fieldReviews" type="number" min="0" value="0">
+          </label>
+          <label>Stock
+            <input id="fieldStock" type="number" min="0" value="0">
+          </label>
+          <label>Tinte (0-360)
+            <input id="fieldTint" type="number" min="0" max="360" value="0">
+          </label>
+          <label class="portal-span-2">Imagen (URL)
+            <input id="fieldImage" placeholder="https://... o public/img/lunette/top.svg">
+          </label>
+          <label class="portal-span-2">Descripción
+            <textarea id="fieldDescription" rows="3"></textarea>
+          </label>
+          <label class="portal-span-2">Detalles (uno por línea)
+            <textarea id="fieldDetails" rows="3"></textarea>
+          </label>
+          <label>Tallas (separadas por coma)
+            <input id="fieldSizes" placeholder="XS, S, M, L">
+          </label>
+          <label>Colores (separados por coma)
+            <input id="fieldColors" placeholder="Rosa, Blanco">
+          </label>
+        </div>
+
+        <div class="portal-preview">
+          <img id="imagePreview" alt="Vista previa" hidden>
+          <label class="portal-check">
+            <input id="fieldActive" type="checkbox" checked>
+            Visible en la tienda
+          </label>
+        </div>
+
+        <div class="portal-modal-actions">
+          <button id="cancelModal" type="button" class="portal-btn ghost">Cancelar</button>
+          <button type="submit" class="portal-btn primary">Guardar producto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="public/js/lunette-data.js"></script>
+  <script src="public/js/portal.js"></script>
+</body>
+</html>
