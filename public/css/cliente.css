@@ -1108,7 +1108,7 @@
 
 /* Nombre del vestido: Blanco puro para destacar al máximo */
 #catalogGrid .product-card-body h3 {
-  color: #ffffff !important;
+  color: #111111 !important;
   font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -1146,7 +1146,7 @@
 
 /* Formato de precios: Blanco brillante y negrita */
 #catalogGrid .product-card-body .price {
-  color: #ffffff !important;
+  color: #111111 !important;
   font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -1661,7 +1661,7 @@
   background: linear-gradient(135deg, #c8a44e 0%, #a8893c 100%) !important;
   border: none !important;
   box-shadow: 0 4px 12px rgba(200, 164, 78, 0.25) !important;
-  color: #ffffff !important;
+  color: #111111 !important;
   font-weight: 600;
 }
 
