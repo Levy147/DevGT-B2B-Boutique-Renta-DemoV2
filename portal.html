@@ -53,116 +53,57 @@
     <main class="portal-content">
       <p id="appMessage" class="portal-message" hidden></p>
 
-      <div class="portal-tabs">
-        <button type="button" class="portal-tab active" data-tab="orders">Pedidos</button>
-        <button type="button" class="portal-tab" data-tab="catalog">Catálogo</button>
-      </div>
-
-      <section id="ordersPanel" class="portal-tab-panel">
-        <div class="portal-panel">
-          <div class="portal-panel-head">
-            <h2>Pedidos</h2>
-            <div class="portal-actions">
-              <input id="orderSearch" type="search" placeholder="Buscar código, nombre o teléfono">
-              <select id="orderStatusFilter">
-                <option value="">Todos los estados</option>
-                <option value="pendiente">Pedido recibido</option>
-                <option value="confirmado">Confirmado</option>
-                <option value="pedido_proveedor">Pedido al proveedor</option>
-                <option value="en_camino">En camino</option>
-                <option value="entregado">Entregado</option>
-                <option value="cancelado">Cancelado</option>
-              </select>
-              <button id="refreshOrdersBtn" type="button" class="portal-btn ghost">Actualizar</button>
-            </div>
-          </div>
-
-          <div id="orderStats" class="portal-stats"></div>
-
-          <div class="portal-table-wrap">
-            <table class="portal-table">
-              <thead>
-                <tr>
-                  <th>Código</th>
-                  <th>Fecha</th>
-                  <th>Cliente</th>
-                  <th>Total</th>
-                  <th>Pago</th>
-                  <th>Estado</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="ordersBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <div id="catalogPanel" class="portal-tab-panel" hidden>
-        <div id="stats" class="portal-stats"></div>
+      <div id="stats" class="portal-stats"></div>
 
       <section class="portal-panel">
         <div class="portal-panel-head">
-          <h2>Calculadora de precios</h2>
+          <h2>Productos</h2>
+          <div class="portal-actions">
+            <input id="searchInput" type="search" placeholder="Buscar nombre, SKU o categoría">
+            <select id="categoryFilter"></select>
+            <button id="newProductBtn" type="button" class="portal-btn primary">+ Nuevo producto</button>
+          </div>
         </div>
-        <div class="portal-inline-form">
-          <input id="calcCost" type="number" placeholder="Costo" step="0.01">
-          <input id="calcMargin" type="number" placeholder="Margen %" step="0.01">
-          <button id="calcBtn" type="button" class="portal-btn primary">Calcular</button>
-          <span id="calcResult" class="portal-muted"></span>
+
+        <div class="portal-table-wrap">
+          <table class="portal-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Producto</th>
+                <th>SKU</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Visible</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="productsBody"></tbody>
+          </table>
         </div>
+        <p id="emptyState" class="portal-empty" hidden>
+          No hay productos todavía.
+          <button id="importDemoBtn" type="button" class="portal-btn ghost">Importar catálogo demo</button>
+        </p>
       </section>
 
-        <section class="portal-panel">
-          <div class="portal-panel-head">
-            <h2>Productos</h2>
-            <div class="portal-actions">
-              <input id="searchInput" type="search" placeholder="Buscar nombre, SKU o categoría">
-              <select id="categoryFilter"></select>
-              <button id="newProductBtn" type="button" class="portal-btn primary">+ Nuevo producto</button>
-            </div>
-          </div>
+      <section class="portal-panel">
+        <div class="portal-panel-head">
+          <h2>Categorías</h2>
+          <button id="newCategoryBtn" type="button" class="portal-btn ghost">+ Nueva categoría</button>
+        </div>
+        <div id="categoriesList" class="portal-chips"></div>
 
-          <div class="portal-table-wrap">
-            <table class="portal-table">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Producto</th>
-                  <th>SKU</th>
-                  <th>Categoría</th>
-                  <th>Precio</th>
-                  <th>Stock</th>
-                  <th>Visible</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="productsBody"></tbody>
-            </table>
-          </div>
-          <p id="emptyState" class="portal-empty" hidden>
-            No hay productos todavía.
-            <button id="importDemoBtn" type="button" class="portal-btn ghost">Importar catálogo demo</button>
-          </p>
-        </section>
-
-        <section class="portal-panel">
-          <div class="portal-panel-head">
-            <h2>Categorías</h2>
-            <button id="newCategoryBtn" type="button" class="portal-btn ghost">+ Nueva categoría</button>
-          </div>
-          <div id="categoriesList" class="portal-chips"></div>
-
-          <form id="categoryForm" class="portal-inline-form" hidden>
-            <input id="catSlug" placeholder="slug (se genera del nombre)">
-            <input id="catName" placeholder="Nombre" required>
-            <input id="catEmoji" placeholder="Emoji" maxlength="4">
-            <input id="catBlurb" placeholder="Descripción corta">
-            <input id="catImage" placeholder="Imagen (URL)">
-            <button type="submit" class="portal-btn primary">Agregar</button>
-          </form>
-        </section>
-      </div>
+        <form id="categoryForm" class="portal-inline-form" hidden>
+          <input id="catSlug" placeholder="slug (se genera del nombre)">
+          <input id="catName" placeholder="Nombre" required>
+          <input id="catEmoji" placeholder="Emoji" maxlength="4">
+          <input id="catBlurb" placeholder="Descripción corta">
+          <input id="catImage" placeholder="Imagen (URL)">
+          <button type="submit" class="portal-btn primary">Agregar</button>
+        </form>
+      </section>
     </main>
   </section>
 
@@ -244,17 +185,6 @@
           <button type="submit" class="portal-btn primary">Guardar producto</button>
         </div>
       </form>
-    </div>
-  </div>
-
-  <!-- Modal pedido -->
-  <div id="orderModal" class="portal-modal" hidden>
-    <div class="portal-modal-card portal-order-modal">
-      <div class="portal-modal-head">
-        <h2 id="orderModalTitle">Pedido</h2>
-        <button id="closeOrderModal" type="button" class="portal-icon-btn" aria-label="Cerrar">×</button>
-      </div>
-      <div id="orderDetail"></div>
     </div>
   </div>
 
