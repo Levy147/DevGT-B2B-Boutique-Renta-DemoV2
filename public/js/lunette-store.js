@@ -286,6 +286,14 @@ function lfNavHTML() {
 }
 
 function lfFooterHTML() {
+  const contact = [];
+  if (LUNETTE_STORE.city) contact.push(`<p>◎ ${LUNETTE_STORE.city}, Guatemala</p>`);
+  if (LUNETTE_STORE.email) contact.push(`<p>✉ <a href="mailto:${LUNETTE_STORE.email}">${LUNETTE_STORE.email}</a></p>`);
+  if (LUNETTE_STORE.instagram && LUNETTE_STORE.instagramUrl) contact.push(`<p>♡ <a href="${LUNETTE_STORE.instagramUrl}" target="_blank" rel="noopener">${LUNETTE_STORE.instagram}</a></p>`);
+  if (LUNETTE_STORE.whatsapp) contact.push(`<p><a href="${lfWhatsAppUrl('¡Hola Lunette! Quiero información sobre sus productos 🎀')}" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></p>`);
+  if (LUNETTE_STORE.hours) contact.push(`<p>◷ ${LUNETTE_STORE.hours}</p>`);
+  if (!contact.length) contact.push('<p>Muy pronto podrás escribirnos por WhatsApp e Instagram.</p>');
+
   return `
     <footer class="footer footer-accent" id="contacto">
       <div class="footer-inner">
@@ -310,11 +318,7 @@ function lfFooterHTML() {
         </div>
         <div>
           <h4>Contacto</h4>
-          <p>◎ ${LUNETTE_STORE.city}, Guatemala</p>
-          <p>✉ <a href="mailto:${LUNETTE_STORE.email}">${LUNETTE_STORE.email}</a></p>
-          <p>♡ <a href="${LUNETTE_STORE.instagramUrl}" target="_blank" rel="noopener">${LUNETTE_STORE.instagram}</a></p>
-          <p><a href="${lfWhatsAppUrl('¡Hola Lunette! Quiero información sobre sus productos 🎀')}" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></p>
-          <p>◷ Lun-Sáb: 10:00 - 19:00</p>
+          ${contact.join('')}
         </div>
       </div>
       <div class="footer-bottom footer-bottom-dark">
@@ -442,6 +446,7 @@ function lfRefreshCartUI() {
 
 function lfWhatsAppUrl(message) {
   const number = String(LUNETTE_STORE.whatsapp || '').replace(/\D/g, '');
+  if (!number) return null;
   return 'https://wa.me/' + number + '?text=' + encodeURIComponent(message);
 }
 

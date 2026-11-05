@@ -6,11 +6,13 @@
 const LUNETTE_STORE = {
   name: 'Lunette',
   tagline: 'cute styles · y2k vibes',
-  email: 'info@lunette.com',
-  instagram: '@lunette',
-  instagramUrl: 'https://instagram.com/lunette',
-  tiktok: '@lunette',
-  whatsapp: '',
+  // Contacto: aún no hay canales configurados. Descomentar cuando estén listos.
+  // email: 'correo@lunette.com',
+  // whatsapp: '50200000000', // formato internacional, sin signos ni espacios
+  // instagram: '@lunette',
+  // instagramUrl: 'https://instagram.com/lunette',
+  // tiktok: '@lunette',
+  // hours: 'Lun-Sáb: 10:00 - 19:00',
   shipping: 25,
   freeShippingFrom: 500,
   city: 'Guatemala',

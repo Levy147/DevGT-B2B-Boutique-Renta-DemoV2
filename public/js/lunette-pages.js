@@ -476,7 +476,7 @@ function lfRenderCartPage() {
 
         <div class="lf-checkout">
           <h3>Datos de entrega</h3>
-          <p>Completa tus datos y confirma el pedido por WhatsApp. También puedes escribirnos si prefieres coordinar por Instagram.</p>
+          <p>Completa tus datos para registrar tu pedido. Te contactaremos para coordinar el pago y la entrega.</p>
           <form id="lfCheckoutForm" novalidate>
             <div class="lf-form-grid">
               <div class="form-group lf-full">
@@ -512,8 +512,8 @@ function lfRenderCartPage() {
                 <textarea id="lfNotes" name="notes" placeholder="Referencias de entrega, horario, etc."></textarea>
               </div>
               <div class="lf-full">
-                <button class="btn btn-primary btn-block" type="submit">Confirmar pedido por WhatsApp</button>
-                <p class="lf-free-note" style="margin:10px 0 0;">Al confirmar se guarda tu pedido y se abre WhatsApp con el resumen.</p>
+                <button class="btn btn-primary btn-block" type="submit">Confirmar pedido</button>
+                <p class="lf-free-note" style="margin:10px 0 0;">Al confirmar se guarda tu pedido y lo registramos para coordinar la entrega.</p>
               </div>
             </div>
           </form>
