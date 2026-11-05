@@ -315,8 +315,6 @@ function lfRenderProductDetail() {
       </div>
       <div class="product-thumbnails">
         <div class="product-thumbnail active"><img src="${product.image}" alt="${product.name}" style="${lfProductImageStyle(product)}"></div>
-        <div class="product-thumbnail"><img src="${product.image}" alt="${product.name} detalle" style="filter:hue-rotate(${Number(product.tint || 0) + 12}deg) saturate(1.15);"></div>
-        <div class="product-thumbnail"><img src="${LUNETTE_IMG.outfits}" alt="Inspiración Lunette" style="filter:hue-rotate(${Number(product.tint || 0)}deg);"></div>
       </div>
     </div>
 
@@ -507,13 +505,32 @@ function lfRenderCartPage() {
                   <option value="Depósito">Depósito</option>
                 </select>
               </div>
+              <div class="form-group" id="lfReferenceGroup">
+                <label for="lfReference">Referencia de pago</label>
+                <input type="text" id="lfReference" name="payment_reference" placeholder="Número de boleta o transferencia">
+              </div>
+              <div class="lf-full">
+                <div class="lf-payment-info" id="lfPaymentInfo"></div>
+              </div>
+              <div class="form-group lf-full" id="lfProofGroup">
+                <label for="lfProof">Comprobante de pago (opcional)</label>
+                <input type="file" id="lfProof" name="proof" accept="image/*,application/pdf">
+                <p class="lf-free-note" style="margin:6px 0 0;">Puedes subirlo ahora o enviarlo después por WhatsApp.</p>
+              </div>
               <div class="form-group lf-full">
                 <label for="lfNotes">Notas del pedido</label>
                 <textarea id="lfNotes" name="notes" placeholder="Referencias de entrega, horario, etc."></textarea>
               </div>
               <div class="lf-full">
-                <button class="btn btn-primary btn-block" type="submit">Confirmar pedido</button>
-                <p class="lf-free-note" style="margin:10px 0 0;">Al confirmar se guarda tu pedido y lo registramos para coordinar la entrega.</p>
+                <label class="lf-preorder" for="lfPreorder">
+                  <input type="checkbox" id="lfPreorder" name="preorder" required>
+                  <span>Entiendo que este pedido es una <strong>preventa</strong> con entrega estimada de <strong>20 a 40 días hábiles</strong>. Acepto que no hay cambios por talla y que el reembolso solo aplica si el producto no llega o llega dañado.</span>
+                </label>
+              </div>
+              <div class="lf-full">
+                <div class="lf-checkout-error" id="lfCheckoutError" hidden></div>
+                <button class="btn btn-primary btn-block" id="lfCheckoutSubmit" type="submit">Confirmar pedido</button>
+                <p class="lf-free-note" style="margin:10px 0 0;">Al confirmar registramos tu pedido en nuestro sistema y te contactamos para coordinar el pago.</p>
               </div>
             </div>
           </form>
@@ -537,16 +554,53 @@ function lfRenderCartPage() {
     </div>
   `;
 
-  document.getElementById('lfCheckoutForm')?.addEventListener('submit', event => {
+  const paymentSelect = document.getElementById('lfPayment');
+  const paymentInfo = document.getElementById('lfPaymentInfo');
+  const proofGroup = document.getElementById('lfProofGroup');
+  const referenceGroup = document.getElementById('lfReferenceGroup');
+  const bank = LUNETTE_STORE.bank || {};
+
+  const updatePaymentInfo = () => {
+    const method = paymentSelect.value;
+    const isCod = method === 'Pago contra entrega';
+    proofGroup.hidden = isCod;
+    referenceGroup.hidden = isCod;
+    if (isCod) {
+      paymentInfo.innerHTML = '<strong>Pago contra entrega:</strong> pagas al recibir tu pedido. Te llamaremos para confirmar la entrega.';
+      return;
+    }
+    const label = method === 'Depósito' ? 'depósito' : 'transferencia';
+    if (bank.account) {
+      paymentInfo.innerHTML = `<strong>Datos para ${label}:</strong><br>${bank.bank || ''} · ${bank.account}<br>Titular: ${bank.holder || '—'}<br>${bank.note || 'Envía tu comprobante al confirmar el pedido.'}`;
+    } else {
+      paymentInfo.innerHTML = `<strong>Pago por ${label}:</strong> al confirmar el pedido te enviaremos los datos bancarios para completar el pago.`;
+    }
+  };
+  paymentSelect?.addEventListener('change', updatePaymentInfo);
+  updatePaymentInfo();
+
+  document.getElementById('lfCheckoutForm')?.addEventListener('submit', async event => {
     event.preventDefault();
     const form = event.currentTarget;
+    const errorBox = document.getElementById('lfCheckoutError');
+    const submitBtn = document.getElementById('lfCheckoutSubmit');
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
 
     const data = new FormData(form);
-    const items = lfCart().map(line => {
+    const customer = {
+      name: String(data.get('name') || '').trim(),
+      phone: String(data.get('phone') || '').trim(),
+      email: String(data.get('email') || '').trim(),
+      address: String(data.get('address') || '').trim(),
+      city: String(data.get('city') || '').trim(),
+      payment: String(data.get('payment') || '').trim(),
+      paymentReference: String(data.get('payment_reference') || '').trim(),
+      notes: String(data.get('notes') || '').trim()
+    };
+    const cartItems = lfCart().map(line => {
       const product = lunetteProductById(line.id);
       return {
         id: line.id,
@@ -556,23 +610,76 @@ function lfRenderCartPage() {
         price: product ? product.price : 0
       };
     });
+    if (!cartItems.length) return;
+
+    errorBox.hidden = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Registrando pedido…';
+
+    let result = null;
+    try {
+      const client = await lfGetSupabaseClient();
+      if (!client) throw new Error('Supabase no está disponible');
+      const { data: rpcData, error } = await client.rpc('create_order', {
+        payload: {
+          customer_name: customer.name,
+          customer_phone: customer.phone,
+          customer_email: customer.email,
+          customer_address: customer.address,
+          customer_city: customer.city,
+          payment_method: customer.payment,
+          payment_reference: customer.paymentReference,
+          notes: customer.notes,
+          preorder_accepted: true,
+          items: cartItems.map(item => ({
+            product_id: Number(item.id),
+            size: item.size,
+            qty: Number(item.qty)
+          }))
+        }
+      });
+      if (error) throw error;
+      result = rpcData;
+    } catch (error) {
+      console.error('No se pudo registrar el pedido en Supabase:', error);
+      errorBox.textContent = 'No pudimos registrar tu pedido en este momento. Revisa tu conexión e inténtalo de nuevo.';
+      errorBox.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Confirmar pedido';
+      return;
+    }
+
+    const proofFile = document.getElementById('lfProof')?.files?.[0];
+    if (result?.code && proofFile) {
+      try {
+        const client = await lfGetSupabaseClient();
+        if (client) {
+          const ext = (proofFile.name.split('.').pop() || 'jpg').toLowerCase();
+          const path = `orders/${result.code}/${Date.now()}.${ext}`;
+          const { error: uploadError } = await client.storage
+            .from('comprobantes')
+            .upload(path, proofFile, { upsert: true, contentType: proofFile.type || undefined });
+          if (uploadError) throw uploadError;
+          await client.rpc('attach_payment_proof', {
+            p_code: result.code,
+            p_path: path,
+            p_reference: customer.paymentReference
+          });
+        }
+      } catch (error) {
+        console.warn('No se pudo subir el comprobante:', error);
+      }
+    }
 
     const order = {
-      code: 'LNT-' + Date.now().toString(36).toUpperCase(),
+      code: result?.code || 'LNT-' + Date.now().toString(36).toUpperCase(),
       date: new Date().toISOString(),
-      items,
-      subtotal,
-      shipping,
-      total,
-      customer: {
-        name: String(data.get('name') || '').trim(),
-        phone: String(data.get('phone') || '').trim(),
-        email: String(data.get('email') || '').trim(),
-        address: String(data.get('address') || '').trim(),
-        city: String(data.get('city') || '').trim(),
-        payment: String(data.get('payment') || '').trim(),
-        notes: String(data.get('notes') || '').trim()
-      }
+      items: cartItems,
+      subtotal: Number(result?.subtotal ?? subtotal),
+      shipping: Number(result?.shipping ?? shipping),
+      total: Number(result?.total ?? total),
+      customer,
+      status: result?.status || 'pendiente'
     };
 
     lfSaveOrder(order);
@@ -587,13 +694,15 @@ function lfRenderCartPage() {
       <p>Guarda tu número de pedido:</p>
       <div class="lf-order-code">${order.code}</div>
       <p>Te contactaremos para confirmar el pago y la entrega.</p>
+      <p class="lf-free-note">Preventa con entrega estimada de 20 a 40 días hábiles.</p>
       <div class="lf-success-actions">
-        ${waUrl ? `<a class="btn btn-primary" href="${waUrl}" target="_blank" rel="noopener">Enviar por WhatsApp</a>` : ''}
+        <a class="btn btn-primary" href="seguimiento.html?code=${encodeURIComponent(order.code)}">Seguir mi pedido</a>
+        ${waUrl ? `<a class="btn btn-secondary" href="${waUrl}" target="_blank" rel="noopener">Enviar por WhatsApp</a>` : ''}
         <a class="btn btn-secondary" href="catalogo.html">Seguir comprando</a>
       </div>
     `;
     success.hidden = false;
-    form.closest('.lf-checkout')?.querySelector('#lfCheckoutForm')?.remove();
+    form.remove();
     success.scrollIntoView({ behavior: 'smooth', block: 'center' });
     lfToast('Pedido registrado correctamente', 'success');
   });
@@ -618,6 +727,164 @@ function lfRenderFavorites() {
   lfRenderGrid(grid, favorites);
 }
 
+/* ─── Tracking page ─── */
+const LF_ORDER_STATUS = {
+  pendiente: { label: 'Pedido recibido', icon: '1', note: 'Recibimos tu pedido y estamos revisando los detalles.' },
+  confirmado: { label: 'Confirmado', icon: '2', note: 'Confirmamos tu pedido y el pago.' },
+  pedido_proveedor: { label: 'Pedido al proveedor', icon: '3', note: 'Estamos comprando tu producto.' },
+  en_camino: { label: 'En camino', icon: '4', note: 'Tu pedido va en camino.' },
+  entregado: { label: 'Entregado', icon: '5', note: '¡Disfruta tu pedido!' },
+  cancelado: { label: 'Cancelado', icon: '×', note: 'El pedido fue cancelado.' }
+};
+
+const LF_PAYMENT_STATUS = {
+  pendiente: 'Pendiente de pago',
+  comprobante_enviado: 'Comprobante recibido',
+  pagado: 'Pagado',
+  contra_entrega: 'Pago contra entrega',
+  reembolsado: 'Reembolsado'
+};
+
+function lfTrackingStatusHTML(status) {
+  if (status === 'cancelado') {
+    return '<div class="lf-track-cancelled">Este pedido fue cancelado.</div>';
+  }
+  const steps = ['pendiente', 'confirmado', 'pedido_proveedor', 'en_camino', 'entregado'];
+  const currentIndex = Math.max(0, steps.indexOf(status));
+  return `
+    <div class="lf-track-timeline">
+      ${steps.map((step, index) => {
+        const meta = LF_ORDER_STATUS[step];
+        const state = index < currentIndex ? 'done' : index === currentIndex ? 'current' : '';
+        return `
+          <div class="lf-track-step ${state}">
+            <span class="lf-track-dot">${index < currentIndex ? '✓' : meta.icon}</span>
+            <div>
+              <strong>${meta.label}</strong>
+              <p>${meta.note}</p>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function lfTrackingResultHTML(order) {
+  const status = LF_ORDER_STATUS[order.status] || LF_ORDER_STATUS.pendiente;
+  const payment = LF_PAYMENT_STATUS[order.payment_status] || order.payment_status;
+  const created = order.created_at
+    ? new Date(order.created_at).toLocaleDateString('es-GT', { day: '2-digit', month: 'long', year: 'numeric' })
+    : '—';
+  const items = (order.items || []).map(item => `
+    <div class="lf-track-item">
+      <span>${item.product_name}${item.size ? ` · Talla ${item.size}` : ''} × ${item.qty}</span>
+      <strong>${lfMoney(Number(item.line_total))}</strong>
+    </div>
+  `).join('');
+  const events = (order.events || []).slice().reverse().map(event => `
+    <li>
+      <span>${event.created_at ? new Date(event.created_at).toLocaleString('es-GT') : ''}</span>
+      <strong>${(LF_ORDER_STATUS[event.status] || {}).label || event.status}</strong>
+      ${event.note ? `<p>${event.note}</p>` : ''}
+    </li>
+  `).join('');
+
+  return `
+    <div class="lf-track-card">
+      <div class="lf-track-head">
+        <div>
+          <span class="lf-track-label">Pedido</span>
+          <h2>${order.code}</h2>
+          <p>Creado el ${created}</p>
+        </div>
+        <span class="lf-track-badge">${status.label}</span>
+      </div>
+
+      <div class="lf-track-meta">
+        <div><span>Pago</span><strong>${payment}</strong></div>
+        <div><span>Método</span><strong>${order.payment_method || '—'}</strong></div>
+        ${order.tracking_code ? `<div><span>Guía</span><strong>${order.tracking_code}</strong></div>` : ''}
+        <div><span>Entrega</span><strong>${order.customer_city || '—'}</strong></div>
+      </div>
+
+      ${lfTrackingStatusHTML(order.status)}
+
+      <div class="lf-track-grid">
+        <div>
+          <h3>Productos</h3>
+          ${items || '<p class="lf-free-note">Sin productos.</p>'}
+          <div class="lf-track-totals">
+            <div><span>Subtotal</span><strong>${lfMoney(Number(order.subtotal))}</strong></div>
+            <div><span>Envío</span><strong>${Number(order.shipping) ? lfMoney(Number(order.shipping)) : 'Gratis'}</strong></div>
+            <div class="lf-track-total"><span>Total</span><strong>${lfMoney(Number(order.total))}</strong></div>
+          </div>
+        </div>
+        <div>
+          <h3>Historial</h3>
+          <ul class="lf-track-events">${events || '<li><span>Sin eventos todavía.</span></li>'}</ul>
+        </div>
+      </div>
+
+      <p class="lf-track-note">¿Dudas con tu pedido? Escríbenos y comparte tu código <strong>${order.code}</strong>.</p>
+    </div>
+  `;
+}
+
+async function lfLoadTracking(code) {
+  const resultHost = document.getElementById('lfTrackResult');
+  if (!resultHost) return;
+  resultHost.innerHTML = '<p class="lf-track-loading">Buscando tu pedido…</p>';
+  try {
+    const client = await lfGetSupabaseClient();
+    if (!client) throw new Error('Supabase no está disponible');
+    const { data, error } = await client.rpc('track_order', { p_code: code });
+    if (error) throw error;
+    if (!data) {
+      resultHost.innerHTML = `
+        <div class="catalog-empty" style="padding:40px 24px;">
+          <div class="empty-icon">🔎</div>
+          <h3>No encontramos ese pedido</h3>
+          <p>Revisa que el código esté completo (ej. LNT-AB12CD34) e inténtalo de nuevo.</p>
+        </div>
+      `;
+      return;
+    }
+    resultHost.innerHTML = lfTrackingResultHTML(data);
+  } catch (error) {
+    console.error('No se pudo consultar el pedido:', error);
+    resultHost.innerHTML = '<div class="lf-track-error">No pudimos consultar tu pedido en este momento. Inténtalo de nuevo más tarde.</div>';
+  }
+}
+
+function lfRenderTracking() {
+  const host = document.getElementById('lfTrackingContent');
+  if (!host) return;
+  const params = new URLSearchParams(window.location.search);
+  const code = (params.get('code') || '').trim().toUpperCase();
+
+  host.innerHTML = `
+    <form class="lf-track-search" id="lfTrackForm">
+      <label for="lfTrackCode">Número de pedido</label>
+      <div class="lf-track-search-row">
+        <input type="text" id="lfTrackCode" name="code" placeholder="LNT-XXXXXXXX" autocomplete="off" required>
+        <button class="btn btn-primary" type="submit">Consultar</button>
+      </div>
+    </form>
+    <div id="lfTrackResult" class="lf-track-result"></div>
+  `;
+  document.getElementById('lfTrackCode').value = code;
+
+  document.getElementById('lfTrackForm')?.addEventListener('submit', event => {
+    event.preventDefault();
+    const value = String(new FormData(event.currentTarget).get('code') || '').trim().toUpperCase();
+    if (!value) return;
+    window.location.href = 'seguimiento.html?code=' + encodeURIComponent(value);
+  });
+
+  if (code) lfLoadTracking(code);
+}
+
 /* ─── Init ─── */
 function lfRenderCurrentPage() {
   switch (lfPageName()) {
@@ -636,6 +903,9 @@ function lfRenderCurrentPage() {
       break;
     case 'favorites':
       lfRenderFavorites();
+      break;
+    case 'tracking':
+      lfRenderTracking();
       break;
   }
 }
