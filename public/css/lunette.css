@@ -67,7 +67,7 @@
 .lf-card-image-link { display: block; height: 100%; }
 .product-card-body h3 a { color: inherit; }
 .product-card-body h3 a:hover { color: var(--primary); }
-.product-card-body .price { color: var(--primary-dark); }
+.product-card-body .price { color: #111; font-weight: 700; }
 .lf-old-price {
   font-family: var(--font-sans);
   font-size: .78rem;
@@ -502,6 +502,42 @@
   width: 100%;
 }
 .lf-checkout textarea { resize: vertical; min-height: 80px; }
+.lf-checkout input[type="file"] { padding: 8px; font-size: .82rem; }
+.lf-checkout input[type="checkbox"] { width: auto; accent-color: var(--primary); }
+
+.lf-preorder {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-cream);
+  font-size: .8rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.lf-preorder input { margin-top: 2px; flex: 0 0 auto; }
+.lf-payment-info {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--bg-light);
+  border: 1px dashed var(--border);
+  font-size: .8rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.lf-payment-info strong { color: var(--text-primary); }
+.lf-checkout-error {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: .82rem;
+}
 
 .lf-success {
   margin-top: 26px;
