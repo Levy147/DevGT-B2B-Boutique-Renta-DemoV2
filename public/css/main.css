@@ -1090,15 +1090,8 @@ body::after {
   animation: pd6 34s ease-in-out infinite; animation-delay: -12s;
 }
 
-.petal {
-  position: fixed;
-  bottom: -5%;
-  pointer-events: none;
-  z-index: 0;
-  border-radius: 60% 40% 50% 50% / 40% 50% 50% 60%;
-  opacity: 0;
-  will-change: transform, opacity;
-}
+.petal { z-index: 0 !important; }
+.lf-category-media, .product-main-image, .product-thumbnail { position: relative; z-index: 1; }
 
 .whatsapp-float {
   position: fixed;
