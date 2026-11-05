@@ -1117,7 +1117,7 @@
 
 /* Categoría y detalles: Blanco con un poco de transparencia para no competir con el título */
 #catalogGrid .product-card-body .category {
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: #444444 !important;
   font-size: 0.85rem;
   font-weight: 400;
   margin-bottom: 14px;
@@ -1125,9 +1125,9 @@
 
 /* SKU o Código: Fondo oscuro semitransparente para que parezca una etiqueta premium */
 #catalogGrid .product-card-body .product-sku {
-  background: rgba(0, 0, 0, 0.15);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #111111;
+  background: rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.12);
   font-size: 0.65rem;
   font-weight: 500;
   padding: 2px 6px;
