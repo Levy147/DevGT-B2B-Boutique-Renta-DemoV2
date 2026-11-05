@@ -142,7 +142,7 @@ function lfClearCart() {
   lfSaveCart([]);
 }
 
-function lfInitPetals() { return; }
+function lfInitPetals() {
   if (document.querySelector('.petal-layer')) return;
   const layer = document.createElement('div');
   layer.className = 'petal-layer';
