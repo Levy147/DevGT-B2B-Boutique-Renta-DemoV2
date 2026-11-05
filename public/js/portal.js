@@ -12,9 +12,13 @@
     profile: null,
     categories: [],
     products: [],
+    orders: [],
     editingId: null,
+    currentOrderId: null,
     filter: '',
     categoryFilter: '',
+    orderFilter: '',
+    orderStatusFilter: '',
     busy: false
   };
 
@@ -71,6 +75,23 @@
     message.timer = setTimeout(() => { els.appMessage.hidden = true; }, 5000);
   }
 
+  const ORDER_STATUS = {
+    pendiente: 'Pedido recibido',
+    confirmado: 'Confirmado',
+    pedido_proveedor: 'Pedido al proveedor',
+    en_camino: 'En camino',
+    entregado: 'Entregado',
+    cancelado: 'Cancelado'
+  };
+
+  const PAYMENT_STATUS = {
+    pendiente: 'Pendiente',
+    comprobante_enviado: 'Comprobante recibido',
+    pagado: 'Pagado',
+    contra_entrega: 'Contra entrega',
+    reembolsado: 'Reembolsado'
+  };
+
   /* ─── Vistas ─── */
 
   function showLogin() {
@@ -84,6 +105,8 @@
     state.profile = null;
     state.products = [];
     state.categories = [];
+    state.orders = [];
+    state.currentOrderId = null;
   }
 
   function showApp(session) {
@@ -564,9 +587,6 @@
     els.newProductBtn.addEventListener('click', () => openProductForm(null));
     els.closeModal.addEventListener('click', closeProductForm);
     els.cancelModal.addEventListener('click', closeProductForm);
-    els.productModal.addEventListener('click', event => {
-      if (event.target === els.productModal) closeProductForm();
-    });
     els.productForm.addEventListener('submit', saveProduct);
     els.fieldImage.addEventListener('input', updatePreview);
 
