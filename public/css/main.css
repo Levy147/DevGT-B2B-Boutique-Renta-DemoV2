@@ -216,13 +216,20 @@ h4 { font-size: 1.25rem; }
 }
 
 .navbar-logo span {
-  color: var(--text-primary);
+  color: #fff;
+  background: #f7a8c4;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
 }
 
 .navbar-links {
   display: flex;
   align-items: center;
   gap: 8px;
+  border: 2px dashed #f7a8c4;
+  border-radius: 999px;
+  padding: 4px;
 }
 
 .navbar-links a {
@@ -236,8 +243,8 @@ h4 { font-size: 1.25rem; }
 
 .navbar-links a:hover,
 .navbar-links a.active {
-  color: var(--text-light);
-  background: var(--primary-dark);
+  color: #5a3a4a;
+  background: #fde2ec;
   border-bottom: none;
 }
 
