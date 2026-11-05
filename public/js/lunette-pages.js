@@ -531,7 +531,7 @@ function lfRenderCartPage() {
              <p class="lf-free-note">Te faltan <strong>${lfMoney(missing)}</strong> para envío gratis.</p>`
           : `<p class="lf-free-note">¡Felicidades! Tienes envío gratis.</p>`}
         <div class="lf-summary-line"><span>Productos</span><strong>${lfCartCount()}</strong></div>
-        <p class="lf-free-note">Puedes coordinar tu pago por WhatsApp o Instagram. Te confirmamos disponibilidad y tiempo de entrega.</p>
+        <p class="lf-free-note">Al confirmar registramos tu pedido y coordinamos el pago y la entrega contigo. Te contactaremos al teléfono que indiques.</p>
         <a href="catalogo.html" class="btn btn-secondary btn-block btn-sm">Seguir comprando</a>
       </aside>
     </div>
@@ -581,13 +581,14 @@ function lfRenderCartPage() {
     lfRenderCartDrawer();
 
     const success = document.getElementById('lfOrderSuccess');
+    const waUrl = lfWhatsAppUrl(lfOrderMessage(order));
     success.innerHTML = `
       <h3>¡Pedido registrado! 🎀</h3>
       <p>Guarda tu número de pedido:</p>
       <div class="lf-order-code">${order.code}</div>
       <p>Te contactaremos para confirmar el pago y la entrega.</p>
       <div class="lf-success-actions">
-        <a class="btn btn-primary" href="${lfWhatsAppUrl(lfOrderMessage(order))}" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        ${waUrl ? `<a class="btn btn-primary" href="${waUrl}" target="_blank" rel="noopener">Enviar por WhatsApp</a>` : ''}
         <a class="btn btn-secondary" href="catalogo.html">Seguir comprando</a>
       </div>
     `;
